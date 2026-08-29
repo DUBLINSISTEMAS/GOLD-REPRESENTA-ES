@@ -1,0 +1,60 @@
+/* ===== Reveal ao rolar =====
+ * Só esconde conteúdo quando <html class="js"> existe (script inline no <head>).
+ * Sem JavaScript, tudo fica visível. Usa apenas opacity/transform (compositor).
+ */
+.js .reveal,
+.js .reveal-left,
+.js .reveal-right {
+  opacity: 0;
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s ease;
+}
+
+.js .reveal {
+  transform: translateY(30px);
+}
+
+.js .reveal-left {
+  transform: translateX(-50px);
+}
+
+.js .reveal-right {
+  transform: translateX(50px);
+}
+
+.js .reveal.active,
+.js .reveal-left.active,
+.js .reveal-right.active {
+  opacity: 1;
+  transform: none;
+}
+
+/* ===== Movimento reduzido ===== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .js .reveal,
+  .js .reveal-left,
+  .js .reveal-right {
+    opacity: 1;
+    transform: none;
+  }
+
+  .gallery-track {
+    animation: none;
+  }
+
+  .gallery-marquee-container {
+    overflow-x: auto;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+}

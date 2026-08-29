@@ -1,0 +1,49 @@
+/* ===== Páginas legais (Política de Privacidade) ===== */
+.page-legal {
+  background-color: var(--color-white);
+}
+
+.legal {
+  max-width: 760px;
+  padding-top: calc(var(--nav-height) + 3rem);
+  padding-bottom: 4rem;
+}
+
+.legal h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.legal-updated {
+  margin-bottom: 2rem;
+  font-size: 0.9rem;
+  color: var(--color-text-light);
+}
+
+.legal h2 {
+  font-size: 1.4rem;
+  margin: 2rem 0 0.75rem;
+}
+
+.legal p,
+.legal li {
+  margin-bottom: 0.75rem;
+  color: var(--color-text);
+}
+
+.legal ul {
+  padding-left: 1.25rem;
+  list-style: disc;
+}
+
+.legal a {
+  color: var(--color-primary);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+@media (max-width: 768px) {
+  .legal h1 {
+    font-size: 1.8rem;
+  }
+}

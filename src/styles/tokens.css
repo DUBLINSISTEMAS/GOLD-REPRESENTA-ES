@@ -1,0 +1,49 @@
+/* ===== Design tokens ===== */
+:root {
+  /* Cores */
+  --color-primary: #0a192f; /* navy profundo */
+  --color-primary-light: #112240;
+  --color-accent: #d4af37; /* dourado — fundos, bordas e texto sobre navy */
+  --color-accent-light: #f3e5ab;
+  --color-accent-hover: #b5952f;
+  --color-accent-text: #b08d2a; /* 3,2:1 sobre branco — só para texto grande (h2) */
+  --color-accent-deep: #8a6d1f; /* 4,9:1 sobre branco — ícones e texto pequeno */
+  --color-whatsapp: #25d366;
+  --color-whatsapp-dark: #128c7e;
+  --color-success: #1b7f4b;
+  --color-danger: #b42318;
+  --color-white: #ffffff;
+  --color-bg: #f8f9fa;
+  --color-text: #333333;
+  --color-text-light: #666666;
+  --color-border: #dddddd;
+
+  /* Tipografia */
+  --font-main: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-heading: 'Playfair Display', Georgia, 'Times New Roman', serif;
+
+  /* Layout */
+  --section-padding: 5rem 0;
+  --container-width: 1200px;
+  --nav-height: 88px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --tap-target: 44px;
+
+  /* Sombras */
+  --shadow-card: 0 15px 40px rgba(0, 0, 0, 0.05);
+  --shadow-float: 0 20px 40px rgba(10, 25, 47, 0.15);
+
+  /* Movimento */
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease;
+  --transition-slow: 0.5s ease;
+
+  /* Camadas */
+  --z-nav: 1000;
+  --z-float: 1000;
+  --z-chat: 1001;
+  --z-chat-mobile: 10000;
+  --z-skip: 2000;
+}

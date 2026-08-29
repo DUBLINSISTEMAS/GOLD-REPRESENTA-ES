@@ -2,280 +2,321 @@
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="/logo_brilhante.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Gold Representações | Crescimento e Resultados</title>
-    <meta name="description" content="A Gold Representações atua com foco no mercado em ascensão, oferecendo soluções estratégicas e representação focada em alta performance." />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <title>Gold Representações | Carta de Crédito para Imóveis, Veículos e Investimentos</title>
+    <meta name="description" content="Carta de crédito por consórcio para imóveis, veículos e investimentos em {{city}} - {{state}}. Planejamento sem juros, apenas taxa de administração. Fale com um especialista da Gold Representações." />
+    <link rel="canonical" href="{{siteUrl}}/" />
+    <meta name="theme-color" content="#0A192F" />
+
+    <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32" />
+    <link rel="icon" href="/favicon-192.png" type="image/png" sizes="192x192" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:site_name" content="{{siteName}}" />
+    <meta property="og:title" content="Gold Representações | Realize seu sonho com Carta de Crédito" />
+    <meta property="og:description" content="Imóveis, veículos e investimentos por consórcio, sem juros. Planejamento seguro e transparente em {{city}} - {{state}}." />
+    <meta property="og:url" content="{{siteUrl}}/" />
+    <meta property="og:image" content="{{siteUrl}}/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Gold Representações | Realize seu sonho com Carta de Crédito" />
+    <meta name="twitter:description" content="Imóveis, veículos e investimentos por consórcio, sem juros. Planejamento seguro e transparente." />
+    <meta name="twitter:image" content="{{siteUrl}}/og-image.jpg" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+    <link rel="preload" as="image" href="/img/hero-poster-1024.webp" fetchpriority="high" />
+    <!-- O script de detecção de JS, o JSON-LD e a meta CSP são injetados pelo plugin em vite.config.js. -->
   </head>
   <body>
-    <!-- Navbar -->
+    <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
+
     <header class="navbar" id="navbar">
       <div class="container nav-container">
-        <a href="#" class="logo">
-          <img src="/logo_brilhante.png" alt="Gold Representações" class="navbar-logo">
+        <a href="#inicio" class="logo" aria-label="Gold Representações — início">
+          <img src="/img/logo-180.webp" srcset="/img/logo-180.webp 180w, /img/logo-360.webp 360w" sizes="80px" width="180" height="180" alt="" class="navbar-logo" />
         </a>
-        <nav class="nav-links">
-          <a href="#inicio">Início</a>
-          <a href="#sobre">Sobre Nós</a>
-          <a href="#servicos">Representações</a>
-          <a href="#clientes">Clientes</a>
-        </nav>
-        <a href="#contato" class="btn btn-outline nav-cta">Fale Conosco</a>
-        <button class="mobile-menu-btn" aria-label="Abrir menu">
+        <button class="mobile-menu-btn" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu-principal">
           <span></span>
           <span></span>
           <span></span>
         </button>
+        <nav id="menu-principal" class="nav-menu" aria-label="Navegação principal">
+          <ul class="nav-links">
+            <li><a href="#inicio">Início</a></li>
+            <li><a href="#sobre">Sobre Nós</a></li>
+            <li><a href="#servicos">Soluções</a></li>
+            <li><a href="#clientes">Contemplados</a></li>
+            <li><a href="#contato">Contato</a></li>
+          </ul>
+          <a href="{{whatsappUrl}}" class="btn btn-outline nav-cta" target="_blank" rel="noopener">Fale Conosco</a>
+        </nav>
       </div>
     </header>
 
-    <!-- Hero Section -->
-    <section id="inicio" class="hero">
-      <video autoplay loop muted playsinline class="hero-bg-video" poster="/hero_bg.jpg">
-        <source src="/hero-video.mp4" type="video/mp4">
-      </video>
-      <div class="hero-overlay"></div>
-      <div class="container hero-content">
-        <span class="badge reveal">Planejamento Inteligente</span>
-        <h1 class="reveal">Realize seu sonho com <span>Carta de Crédito</span></h1>
-        <p class="reveal">Imóveis, Veículos e Investimentos. Conquiste seu patrimônio sem pagar juros através de um planejamento financeiro seguro e inteligente.</p>
-        <div class="hero-actions reveal">
-          <a href="https://wa.me/5511999999999?text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20quero%20falar%20com%20um%20especialista%20sobre%20cartas%20de%20cr%C3%A9dito." target="_blank" class="btn btn-primary">Falar com Especialista Agora</a>
-          <a href="#sobre" class="btn btn-secondary">Conheça a Gold</a>
+    <main id="conteudo">
+      <!-- Hero -->
+      <section id="inicio" class="hero" aria-labelledby="hero-heading">
+        <video class="hero-bg-video" muted playsinline loop preload="none" poster="/img/hero-poster-1024.webp" data-src="/hero-video.mp4" aria-hidden="true" tabindex="-1"></video>
+        <div class="hero-overlay" aria-hidden="true"></div>
+        <div class="container hero-content">
+          <span class="badge reveal">Planejamento inteligente</span>
+          <h1 id="hero-heading" class="reveal">Realize seu sonho com <span>Carta de Crédito</span></h1>
+          <p class="reveal">Imóveis, veículos e investimentos. Conquiste seu patrimônio sem juros — apenas a taxa de administração — com um planejamento financeiro seguro e transparente.</p>
+          <div class="hero-actions reveal">
+            <a href="{{whatsappUrl}}" target="_blank" rel="noopener" class="btn btn-primary">Falar com um especialista</a>
+            <a href="#sobre" class="btn btn-secondary">Conheça a Gold</a>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- About Section -->
-    <section id="sobre" class="about section">
-      <div class="container about-container">
-        <div class="about-text reveal-left">
-          <h2>Quem é a <span class="text-gold">Gold Representações?</span></h2>
-          <p>Com a força de um mercado em ascensão, a Gold Representações nasceu para entregar resultados consistentes e crescimento patrimonial/comercial para nossos clientes. Nosso símbolo, o <strong>Touro Dourado</strong>, reflete nossa filosofia de atuação: foco total na alta performance e em tendências de alta (<em>Bull Market</em>).</p>
-          <p>Atuamos com transparência e excelência, garantindo que nossos parceiros tenham acesso às melhores estratégias de expansão e representação em um ambiente moderno e altamente qualificado.</p>
-          <div class="stats">
-            <div class="stat-item">
-              <h3 class="stat-number">Alta</h3>
-              <span class="stat-label">Performance</span>
-            </div>
-            <div class="stat-item">
-              <h3 class="stat-number">Foco</h3>
-              <span class="stat-label">Em Resultados</span>
-            </div>
-            <div class="stat-item">
-              <h3 class="stat-number">100%</h3>
-              <span class="stat-label">Transparência</span>
-            </div>
+      <!-- Sobre -->
+      <section id="sobre" class="about section" aria-labelledby="sobre-heading">
+        <div class="container about-container">
+          <div class="about-text reveal-left">
+            <h2 id="sobre-heading">Quem é a <span class="text-gold">Gold Representações?</span></h2>
+            <p>A Gold nasceu em {{city}} - {{state}} para ajudar pessoas e famílias a conquistarem imóvel, veículo e patrimônio por meio da carta de crédito — com planejamento, sem juros e sem surpresas.</p>
+            <p>Nosso símbolo, o <strong>Touro Dourado</strong>, resume a filosofia da casa: foco em alta performance e em tendências de alta (<em>bull market</em>). Na prática, isso significa acompanhar você da simulação à contemplação, com transparência em cada etapa.</p>
+            <ul class="pillars" aria-label="Nossos compromissos">
+              <li class="pillar"><strong>Alta</strong><span>performance</span></li>
+              <li class="pillar"><strong>Foco</strong><span>em resultados</span></li>
+              <li class="pillar"><strong>100%</strong><span>transparência</span></li>
+            </ul>
           </div>
+          <figure class="about-image-wrapper reveal-right">
+            <img src="/img/reception-640.webp" srcset="/img/reception-640.webp 640w, /img/reception-1280.webp 1280w" sizes="(max-width: 992px) 100vw, 544px" width="640" height="480" loading="lazy" decoding="async" alt="Recepção da Gold Representações: balcão em mármore preto e o logo do touro dourado na parede" class="about-image" />
+            <div class="accent-box" aria-hidden="true"></div>
+          </figure>
         </div>
-        <div class="about-image-wrapper reveal-right">
-          <img src="/reception.png" alt="Recepção moderna da Gold Representações com o logo do touro" style="width: 100%; border-radius: 8px; box-shadow: 0 20px 40px rgba(10, 25, 47, 0.15); position: relative; z-index: 2;">
-          <div class="accent-box"></div>
-        </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- Services Section -->
-    <section id="servicos" class="services section bg-light">
-      <div class="container">
-        <div class="section-header reveal">
-          <h2>Nossas <span class="text-gold">Soluções</span></h2>
-          <p>Oferecemos as melhores opções de cartas de crédito para você alcançar seus objetivos sem pagar juros abusivos.</p>
+      <!-- Soluções -->
+      <section id="servicos" class="services section bg-light" aria-labelledby="servicos-heading">
+        <div class="container">
+          <div class="section-header reveal">
+            <h2 id="servicos-heading">Nossas <span class="text-gold">Soluções</span></h2>
+            <p>Cartas de crédito para cada objetivo, sem juros — você paga apenas a taxa de administração do grupo, com parcelas que cabem no seu planejamento.</p>
+          </div>
+          <ul class="services-grid">
+            <li class="service-card reveal">
+              <div class="icon-wrapper" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+              </div>
+              <h3>Imóveis</h3>
+              <p>Casa própria, terreno, construção ou reforma. Com a carta de crédito você compra à vista e negocia melhor.</p>
+            </li>
+            <li class="service-card reveal">
+              <div class="icon-wrapper" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></svg>
+              </div>
+              <h3>Veículos</h3>
+              <p>Carro, moto ou veículo pesado, zero km ou seminovo — com parcelas planejadas e sem juros.</p>
+            </li>
+            <li class="service-card reveal">
+              <div class="icon-wrapper" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+              </div>
+              <h3>Investimentos</h3>
+              <p>Use o consórcio como estratégia de planejamento para formar patrimônio: imóvel para renda, ampliação do negócio ou reserva de valor.</p>
+            </li>
+          </ul>
         </div>
-        <div class="services-grid">
-          <div class="service-card reveal">
-            <div class="icon-wrapper">
-              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-home"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-            </div>
-            <h3>Imóveis</h3>
-            <p>Cartas de crédito para a compra da sua casa própria, terreno ou reforma, com parcelas que cabem no seu bolso.</p>
-          </div>
-          <div class="service-card reveal">
-            <div class="icon-wrapper">
-              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-car"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></svg>
-            </div>
-            <h3>Veículos</h3>
-            <p>Planejamento inteligente para adquirir seu carro, moto ou veículo pesado zero km ou seminovo.</p>
-          </div>
-          <div class="service-card reveal">
-            <div class="icon-wrapper">
-              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trending-up"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
-            </div>
-            <h3>Investimentos</h3>
-            <p>Multiplique seu patrimônio utilizando o consórcio como uma poderosa ferramenta de alavancagem financeira.</p>
-          </div>
-        </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- Social Proof Section -->
-    <section id="clientes" class="testimonials section">
-      <div class="container">
-        <div class="section-header reveal">
-          <h2>O que dizem <span class="text-gold">Nossos Clientes</span></h2>
-          <p>A prova do nosso comprometimento está no resultado daqueles que confiam na Gold.</p>
-        </div>
-        <div class="gallery-marquee-container reveal">
-          <div class="gallery-marquee">
+      <!-- Contemplados -->
+      <section id="clientes" class="testimonials section" aria-labelledby="clientes-heading">
+        <div class="container">
+          <div class="section-header reveal">
+            <h2 id="clientes-heading">Clientes <span class="text-gold">Contemplados</span></h2>
+            <p>A prova do nosso trabalho é a carta de crédito na mão de quem confiou no planejamento.</p>
+            <p class="gallery-note">{{administradoraNote}}</p>
+          </div>
+          <div class="gallery-marquee-container reveal" role="region" aria-label="Fotos de clientes contemplados">
             <div class="gallery-track">
-              <!-- Original Set -->
-              <img src="/clientes/cliente_1.png" alt="Cliente Gold" class="gallery-img">
-              <img src="/clientes/cliente_2.png" alt="Cliente Gold" class="gallery-img">
-              <img src="/clientes/cliente_3.png" alt="Cliente Gold" class="gallery-img">
-              <img src="/clientes/cliente_4.png" alt="Cliente Gold" class="gallery-img">
-              <img src="/clientes/cliente_5.png" alt="Cliente Gold" class="gallery-img">
-              <img src="/clientes/cliente_6.png" alt="Cliente Gold" class="gallery-img">
-              <img src="/clientes/cliente_7.png" alt="Cliente Gold" class="gallery-img">
-              <img src="/clientes/cliente_8.png" alt="Cliente Gold" class="gallery-img">
-              <img src="/clientes/cliente_9.png" alt="Cliente Gold" class="gallery-img">
-              <img src="/clientes/cliente_10.png" alt="Cliente Gold" class="gallery-img">
-              <img src="/clientes/cliente_11.png" alt="Cliente Gold" class="gallery-img">
-              <img src="/clientes/cliente_12.png" alt="Cliente Gold" class="gallery-img">
-              <!-- Duplicated Set for Infinite Loop -->
-              <img src="/clientes/cliente_1.png" alt="Cliente Gold" class="gallery-img">
-              <img src="/clientes/cliente_2.png" alt="Cliente Gold" class="gallery-img">
-              <img src="/clientes/cliente_3.png" alt="Cliente Gold" class="gallery-img">
-              <img src="/clientes/cliente_4.png" alt="Cliente Gold" class="gallery-img">
-              <img src="/clientes/cliente_5.png" alt="Cliente Gold" class="gallery-img">
-              <img src="/clientes/cliente_6.png" alt="Cliente Gold" class="gallery-img">
-              <img src="/clientes/cliente_7.png" alt="Cliente Gold" class="gallery-img">
-              <img src="/clientes/cliente_8.png" alt="Cliente Gold" class="gallery-img">
-              <img src="/clientes/cliente_9.png" alt="Cliente Gold" class="gallery-img">
-              <img src="/clientes/cliente_10.png" alt="Cliente Gold" class="gallery-img">
-              <img src="/clientes/cliente_11.png" alt="Cliente Gold" class="gallery-img">
-              <img src="/clientes/cliente_12.png" alt="Cliente Gold" class="gallery-img">
+              <div class="gallery-set">
+                <img src="/img/clientes/cliente_1-320.webp" srcset="/img/clientes/cliente_1-320.webp 320w, /img/clientes/cliente_1-640.webp 640w" sizes="(max-width: 768px) 240px, 300px" width="300" height="450" loading="lazy" decoding="async" alt="Cliente contemplada nº 1 segurando o cheque simbólico da carta de crédito" class="gallery-img" />
+                <img src="/img/clientes/cliente_2-320.webp" srcset="/img/clientes/cliente_2-320.webp 320w, /img/clientes/cliente_2-640.webp 640w" sizes="(max-width: 768px) 240px, 300px" width="300" height="450" loading="lazy" decoding="async" alt="Cliente contemplado nº 2 segurando o cheque simbólico da carta de crédito" class="gallery-img" />
+                <img src="/img/clientes/cliente_3-320.webp" srcset="/img/clientes/cliente_3-320.webp 320w, /img/clientes/cliente_3-640.webp 640w" sizes="(max-width: 768px) 240px, 300px" width="300" height="450" loading="lazy" decoding="async" alt="Cliente contemplado nº 3 segurando o cheque simbólico da carta de crédito" class="gallery-img" />
+                <img src="/img/clientes/cliente_4-320.webp" srcset="/img/clientes/cliente_4-320.webp 320w, /img/clientes/cliente_4-640.webp 640w" sizes="(max-width: 768px) 240px, 300px" width="300" height="450" loading="lazy" decoding="async" alt="Cliente contemplado nº 4 segurando o cheque simbólico da carta de crédito" class="gallery-img" />
+                <img src="/img/clientes/cliente_5-320.webp" srcset="/img/clientes/cliente_5-320.webp 320w, /img/clientes/cliente_5-640.webp 640w" sizes="(max-width: 768px) 240px, 300px" width="300" height="450" loading="lazy" decoding="async" alt="Cliente contemplado nº 5 segurando o cheque simbólico da carta de crédito" class="gallery-img" />
+                <img src="/img/clientes/cliente_6-320.webp" srcset="/img/clientes/cliente_6-320.webp 320w, /img/clientes/cliente_6-640.webp 640w" sizes="(max-width: 768px) 240px, 300px" width="300" height="450" loading="lazy" decoding="async" alt="Cliente contemplado nº 6 segurando o cheque simbólico da carta de crédito" class="gallery-img" />
+                <img src="/img/clientes/cliente_7-320.webp" srcset="/img/clientes/cliente_7-320.webp 320w, /img/clientes/cliente_7-640.webp 640w" sizes="(max-width: 768px) 240px, 300px" width="300" height="450" loading="lazy" decoding="async" alt="Cliente contemplado nº 7 segurando o cheque simbólico da carta de crédito" class="gallery-img" />
+                <img src="/img/clientes/cliente_8-320.webp" srcset="/img/clientes/cliente_8-320.webp 320w, /img/clientes/cliente_8-640.webp 640w" sizes="(max-width: 768px) 240px, 300px" width="300" height="450" loading="lazy" decoding="async" alt="Cliente contemplado nº 8 segurando o cheque simbólico da carta de crédito" class="gallery-img" />
+                <img src="/img/clientes/cliente_9-320.webp" srcset="/img/clientes/cliente_9-320.webp 320w, /img/clientes/cliente_9-640.webp 640w" sizes="(max-width: 768px) 240px, 300px" width="300" height="450" loading="lazy" decoding="async" alt="Cliente contemplado nº 9 segurando o cheque simbólico da carta de crédito" class="gallery-img" />
+                <img src="/img/clientes/cliente_10-320.webp" srcset="/img/clientes/cliente_10-320.webp 320w, /img/clientes/cliente_10-640.webp 640w" sizes="(max-width: 768px) 240px, 300px" width="300" height="450" loading="lazy" decoding="async" alt="Cliente contemplado nº 10 segurando o cheque simbólico da carta de crédito" class="gallery-img" />
+                <img src="/img/clientes/cliente_11-320.webp" srcset="/img/clientes/cliente_11-320.webp 320w, /img/clientes/cliente_11-640.webp 640w" sizes="(max-width: 768px) 240px, 300px" width="300" height="450" loading="lazy" decoding="async" alt="Cliente contemplado nº 11 segurando o cheque simbólico da carta de crédito" class="gallery-img" />
+                <img src="/img/clientes/cliente_12-320.webp" srcset="/img/clientes/cliente_12-320.webp 320w, /img/clientes/cliente_12-640.webp 640w" sizes="(max-width: 768px) 240px, 300px" width="300" height="450" loading="lazy" decoding="async" alt="Cliente contemplado nº 12 segurando o cheque simbólico da carta de crédito" class="gallery-img" />
+              </div>
+              <!-- Cópia do conjunto para o loop infinito: escondida de leitores de tela. -->
+              <div class="gallery-set" aria-hidden="true">
+                <img src="/img/clientes/cliente_1-320.webp" srcset="/img/clientes/cliente_1-320.webp 320w, /img/clientes/cliente_1-640.webp 640w" sizes="(max-width: 768px) 240px, 300px" width="300" height="450" loading="lazy" decoding="async" alt="" class="gallery-img" />
+                <img src="/img/clientes/cliente_2-320.webp" srcset="/img/clientes/cliente_2-320.webp 320w, /img/clientes/cliente_2-640.webp 640w" sizes="(max-width: 768px) 240px, 300px" width="300" height="450" loading="lazy" decoding="async" alt="" class="gallery-img" />
+                <img src="/img/clientes/cliente_3-320.webp" srcset="/img/clientes/cliente_3-320.webp 320w, /img/clientes/cliente_3-640.webp 640w" sizes="(max-width: 768px) 240px, 300px" width="300" height="450" loading="lazy" decoding="async" alt="" class="gallery-img" />
+                <img src="/img/clientes/cliente_4-320.webp" srcset="/img/clientes/cliente_4-320.webp 320w, /img/clientes/cliente_4-640.webp 640w" sizes="(max-width: 768px) 240px, 300px" width="300" height="450" loading="lazy" decoding="async" alt="" class="gallery-img" />
+                <img src="/img/clientes/cliente_5-320.webp" srcset="/img/clientes/cliente_5-320.webp 320w, /img/clientes/cliente_5-640.webp 640w" sizes="(max-width: 768px) 240px, 300px" width="300" height="450" loading="lazy" decoding="async" alt="" class="gallery-img" />
+                <img src="/img/clientes/cliente_6-320.webp" srcset="/img/clientes/cliente_6-320.webp 320w, /img/clientes/cliente_6-640.webp 640w" sizes="(max-width: 768px) 240px, 300px" width="300" height="450" loading="lazy" decoding="async" alt="" class="gallery-img" />
+                <img src="/img/clientes/cliente_7-320.webp" srcset="/img/clientes/cliente_7-320.webp 320w, /img/clientes/cliente_7-640.webp 640w" sizes="(max-width: 768px) 240px, 300px" width="300" height="450" loading="lazy" decoding="async" alt="" class="gallery-img" />
+                <img src="/img/clientes/cliente_8-320.webp" srcset="/img/clientes/cliente_8-320.webp 320w, /img/clientes/cliente_8-640.webp 640w" sizes="(max-width: 768px) 240px, 300px" width="300" height="450" loading="lazy" decoding="async" alt="" class="gallery-img" />
+                <img src="/img/clientes/cliente_9-320.webp" srcset="/img/clientes/cliente_9-320.webp 320w, /img/clientes/cliente_9-640.webp 640w" sizes="(max-width: 768px) 240px, 300px" width="300" height="450" loading="lazy" decoding="async" alt="" class="gallery-img" />
+                <img src="/img/clientes/cliente_10-320.webp" srcset="/img/clientes/cliente_10-320.webp 320w, /img/clientes/cliente_10-640.webp 640w" sizes="(max-width: 768px) 240px, 300px" width="300" height="450" loading="lazy" decoding="async" alt="" class="gallery-img" />
+                <img src="/img/clientes/cliente_11-320.webp" srcset="/img/clientes/cliente_11-320.webp 320w, /img/clientes/cliente_11-640.webp 640w" sizes="(max-width: 768px) 240px, 300px" width="300" height="450" loading="lazy" decoding="async" alt="" class="gallery-img" />
+                <img src="/img/clientes/cliente_12-320.webp" srcset="/img/clientes/cliente_12-320.webp 320w, /img/clientes/cliente_12-640.webp 640w" sizes="(max-width: 768px) 240px, 300px" width="300" height="450" loading="lazy" decoding="async" alt="" class="gallery-img" />
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- Contact Section -->
-    <section id="contato" class="contact section">
-      <div class="container contact-container">
-        <div class="contact-info reveal-left">
-          <h2>Pronto para alcançar o <span class="text-gold">Próximo Nível?</span></h2>
-          <p>Entre em contato conosco e descubra como a Gold Representações pode alavancar os seus resultados hoje mesmo.</p>
-          
-          <div class="contact-methods">
-            <div class="method">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-              <span>contato@goldrepresentacoes.com.br</span>
-            </div>
-            <div class="method">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-phone"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-              <span>+55 (11) 99999-9999</span>
-            </div>
-            <div class="method">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-map-pin"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-              <span>Pedreiras - MA</span>
-            </div>
-          </div>
-          
-          <div class="map-container" style="margin-top: 2rem; border-radius: 8px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
-            <iframe src="https://maps.google.com/maps?q=Pedreiras+MA&t=&z=15&ie=UTF8&iwloc=&output=embed" width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-          </div>
-        </div>
-        
-        <form class="contact-form reveal-right" onsubmit="event.preventDefault(); alert('Mensagem enviada com sucesso! Em breve entraremos em contato.');">
-          <div class="form-group">
-            <label for="name">Nome Completo</label>
-            <input type="text" id="name" required placeholder="Seu nome">
-          </div>
-          <div class="form-group">
-            <label for="email">E-mail Profissional</label>
-            <input type="email" id="email" required placeholder="seu@email.com.br">
-          </div>
-          <div class="form-group">
-            <label for="message">Mensagem</label>
-            <textarea id="message" rows="4" required placeholder="Como podemos ajudar?"></textarea>
-          </div>
-          <button type="submit" class="btn btn-primary btn-block">Enviar Mensagem</button>
-        </form>
-      </div>
-    </section>
+      <!-- Contato -->
+      <section id="contato" class="contact section bg-light" aria-labelledby="contato-heading">
+        <div class="container contact-container">
+          <div class="contact-info reveal-left">
+            <h2 id="contato-heading">Pronto para dar o <span class="text-gold">próximo passo?</span></h2>
+            <p>Fale com a Gold e receba uma simulação sem compromisso. Respondemos pelo WhatsApp, por e-mail ou pessoalmente em {{city}}.</p>
 
-    <!-- Instagram Banner Section -->
-    <section class="instagram-banner section bg-light">
-      <div class="container instagram-container reveal">
-        <div class="instagram-content">
-          <h2>Acompanhe nossos <span class="text-gold">Resultados</span></h2>
-          <p>Siga nosso Instagram para ver novidades, dicas de consórcios e investimentos diários.</p>
-          <a href="https://www.instagram.com/gold_representacoes2026/?hl=en" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 10px;">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-instagram"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
-            Seguir @gold_representacoes2026
-          </a>
+            <ul class="contact-methods">
+              <li class="method">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                <a href="mailto:{{email}}">{{email}}</a>
+              </li>
+              <li class="method">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                <a href="{{whatsappUrl}}" target="_blank" rel="noopener">{{phoneDisplay}} (WhatsApp)</a>
+              </li>
+              <li class="method">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                <span>{{locationDisplay}}</span>
+              </li>
+            </ul>
+
+            <div class="map-facade" id="map-facade">
+              <p>Veja onde estamos em {{city}} - {{state}}.</p>
+              <div class="map-actions">
+                <button type="button" class="btn btn-outline" id="map-load" data-map-src="{{mapsEmbedUrl}}">Carregar mapa</button>
+                <a class="btn-link btn-link-light" href="{{mapsUrl}}" target="_blank" rel="noopener">Abrir no Google Maps</a>
+              </div>
+              <small>O mapa do Google só é carregado quando você clicar — nenhum dado é enviado antes disso.</small>
+            </div>
+          </div>
+
+          <form class="contact-form reveal-right" id="contact-form" action="{{formEndpoint}}" method="POST">
+            <h3 class="form-title">Envie uma mensagem</h3>
+            <div class="form-group">
+              <label for="name">Nome completo</label>
+              <input type="text" id="name" name="name" autocomplete="name" required placeholder="Seu nome" />
+            </div>
+            <div class="form-group">
+              <label for="email">E-mail</label>
+              <input type="email" id="email" name="email" autocomplete="email" required placeholder="voce@exemplo.com" />
+            </div>
+            <div class="form-group">
+              <label for="message">Mensagem</label>
+              <textarea id="message" name="message" rows="4" autocomplete="off" required placeholder="Conte o que você quer conquistar (ex.: imóvel de R$ 250 mil)"></textarea>
+            </div>
+            <label class="form-consent">
+              <input type="checkbox" name="consent" id="consent" value="sim" required />
+              <span>Li e concordo com a <a href="/privacidade.html">Política de Privacidade</a> e autorizo o contato da Gold Representações.</span>
+            </label>
+            <input type="text" name="_gotcha" class="visually-hidden" tabindex="-1" autocomplete="off" aria-hidden="true" />
+            <button type="submit" class="btn btn-primary btn-block">Enviar mensagem</button>
+            <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+          </form>
         </div>
-        <div class="instagram-mockup">
-          <div class="phone-frame floating-phone">
-            <img src="/front.png" alt="Instagram Mockup" class="phone-screen">
+      </section>
+
+      <!-- Instagram -->
+      <section class="instagram-banner section" aria-labelledby="instagram-heading">
+        <div class="container instagram-container reveal">
+          <div class="instagram-content">
+            <h2 id="instagram-heading">Acompanhe nossos <span class="text-gold">resultados</span></h2>
+            <p>No Instagram você vê as contemplações da semana, dicas de consórcio e os bastidores da Gold.</p>
+            <a href="{{instagramUrl}}" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+              Seguir @{{instagramHandle}}
+            </a>
+          </div>
+          <div class="instagram-mockup" aria-hidden="true">
+            <div class="phone-frame floating-phone">
+              <div class="phone-screen">
+                <div class="ig-header">
+                  <img src="/img/logo-180.webp" width="180" height="180" alt="" class="ig-avatar" loading="lazy" decoding="async" />
+                  <div class="ig-identity">
+                    <strong>{{instagramHandle}}</strong>
+                    <span>{{siteName}}</span>
+                  </div>
+                </div>
+                <p class="ig-bio">🚀 Realize seu sonho com Carta de Crédito<br />🏠 Imóveis · 🚗 Veículos · 💰 Investimentos<br />📊 Sem juros · Planejamento inteligente</p>
+                <span class="ig-follow">Seguir</span>
+                <img src="/img/instagram-grid.webp" width="508" height="280" alt="" class="ig-grid" loading="lazy" decoding="async" />
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </main>
 
-    <!-- Footer -->
     <footer class="footer">
       <div class="container footer-content">
-        <div class="footer-logo">
-          <img src="/logo.png" alt="Gold Representações" class="footer-logo-img">
-          <p>Elevando padrões e conectando resultados.</p>
+        <div class="footer-brand">
+          <img src="/img/logo-footer-200.webp" srcset="/img/logo-footer-200.webp 200w, /img/logo-footer-400.webp 400w" sizes="200px" width="200" height="200" loading="lazy" decoding="async" alt="Gold Representações" class="footer-logo-img" />
+          <p>Carta de crédito com planejamento, em {{city}} - {{state}}.</p>
         </div>
-        <div class="footer-links">
-          <h3>Links Rápidos</h3>
+        <nav class="footer-links" aria-label="Links rápidos">
+          <h2 class="footer-heading">Links rápidos</h2>
           <a href="#inicio">Início</a>
           <a href="#sobre">Sobre Nós</a>
-          <a href="#servicos">Serviços</a>
-        </div>
+          <a href="#servicos">Soluções</a>
+          <a href="#clientes">Contemplados</a>
+          <a href="#contato">Contato</a>
+        </nav>
         <div class="footer-social">
-          <h3>Siga-nos</h3>
-          <a href="#" target="_blank" rel="noopener noreferrer">Instagram</a>
-          <a href="#" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <h2 class="footer-heading">Fale com a gente</h2>
+          <a href="{{instagramUrl}}" target="_blank" rel="noopener noreferrer">Instagram</a>
+          <a href="{{whatsappUrl}}" target="_blank" rel="noopener">WhatsApp</a>
+          <a href="mailto:{{email}}">E-mail</a>
         </div>
       </div>
       <div class="footer-bottom">
-        <p>&copy; <span id="year"></span> Gold Representações. Todos os direitos reservados.</p>
+        <p>&copy; <span id="year">{{currentYear}}</span> {{siteName}}. Todos os direitos reservados. · <a href="/privacidade.html">Política de Privacidade</a></p>
       </div>
     </footer>
 
-    <!-- WhatsApp Floating Button -->
-    <a href="https://wa.me/5511999999999?text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20quero%20falar%20com%20um%20especialista%20sobre%20cartas%20de%20cr%C3%A9dito." class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Falar no WhatsApp">
-      <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 24 24" fill="currentColor" class="whatsapp-icon">
+    <!-- Botão flutuante do WhatsApp -->
+    <a href="{{whatsappUrl}}" class="whatsapp-float" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
         <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
       </svg>
     </a>
 
-    <!-- AI Sales Agent Chatbot -->
-    <div class="chatbot-container" id="chatbot-container">
-      <div class="chatbot-header" id="chatbot-header">
-        <div class="chatbot-title">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bot"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg>
-          Especialista Gold (IA)
+    <!-- Assistente virtual (fluxo guiado de 2 perguntas que entrega o lead no WhatsApp) -->
+    <div class="chatbot-container" id="chatbot-container" role="dialog" aria-labelledby="chatbot-title" aria-hidden="true">
+      <div class="chatbot-header">
+        <div class="chatbot-title" id="chatbot-title">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg>
+          Assistente Gold
         </div>
-        <button class="chatbot-close" id="chatbot-close">&times;</button>
+        <button class="chatbot-close" id="chatbot-close" type="button" aria-label="Fechar assistente">&times;</button>
       </div>
-      <div class="chatbot-messages" id="chatbot-messages">
-        <!-- Messages will be injected here via JS -->
-      </div>
-      <div class="chatbot-input">
-        <input type="text" id="chatbot-input-field" placeholder="Digite sua resposta..." disabled>
-        <button id="chatbot-send-btn" disabled>
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-send"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
+      <div class="chatbot-messages" id="chatbot-messages" aria-live="polite" tabindex="-1"></div>
+      <form class="chatbot-input" id="chatbot-form">
+        <label for="chatbot-input-field" class="visually-hidden">Sua resposta</label>
+        <input type="text" id="chatbot-input-field" placeholder="Digite sua resposta..." autocomplete="off" enterkeyhint="send" disabled />
+        <button id="chatbot-send-btn" type="submit" aria-label="Enviar resposta" disabled>
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
         </button>
-      </div>
+      </form>
     </div>
-    
-    <button class="chatbot-toggle" id="chatbot-toggle" aria-label="Abrir assistente virtual">
-      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-message-square"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-      <span class="chatbot-badge">1</span>
+
+    <button class="chatbot-toggle" id="chatbot-toggle" type="button" aria-label="Abrir assistente virtual" aria-expanded="false" aria-controls="chatbot-container">
+      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      <span class="chatbot-badge" aria-hidden="true"></span>
     </button>
 
     <script type="module" src="/src/main.js"></script>
-    <script>
-      document.getElementById('year').textContent = new Date().getFullYear();
-    </script>
   </body>
 </html>

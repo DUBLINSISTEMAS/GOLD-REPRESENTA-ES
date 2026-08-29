@@ -1,0 +1,71 @@
+/* ===== Galeria de contemplados (marquee) ===== */
+.gallery-note {
+  margin-top: 0.75rem;
+  font-size: 0.9rem;
+  color: var(--color-text-light);
+}
+
+.gallery-note:empty {
+  display: none;
+}
+
+.gallery-marquee-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding: 2rem 0;
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+/*
+ * Dois conjuntos idênticos; cada um fecha com o mesmo espaçamento (padding-right = gap).
+ * Assim translateX(-50%) equivale exatamente a um conjunto e o loop não "pula".
+ */
+.gallery-track {
+  display: flex;
+  width: max-content;
+  animation: scroll-marquee 40s linear infinite;
+}
+
+.gallery-set {
+  display: flex;
+  flex-shrink: 0;
+  gap: 20px;
+  padding-right: 20px;
+}
+
+.gallery-marquee-container:hover .gallery-track,
+.gallery-track:focus-within {
+  animation-play-state: paused;
+}
+
+.gallery-img {
+  flex-shrink: 0;
+  width: 300px;
+  height: 450px;
+  object-fit: cover;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  transition:
+    transform var(--transition-normal),
+    box-shadow var(--transition-normal);
+}
+
+.gallery-img:hover {
+  transform: scale(1.03);
+  box-shadow: 0 15px 40px rgba(212, 175, 55, 0.2);
+}
+
+@keyframes scroll-marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 768px) {
+  .gallery-img {
+    width: 240px;
+    height: 360px;
+  }
+}
