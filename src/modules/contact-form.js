@@ -1,6 +1,8 @@
 import { buildContactMessage } from '../lib/messages.js';
 import { buildWhatsAppUrl } from '../lib/whatsapp.js';
 
+const FETCH_TIMEOUT_MS = 10_000;
+
 const STATUS_TEXT = {
   sending: 'Enviando…',
   success: 'Mensagem enviada! Em breve entraremos em contato.',
@@ -9,8 +11,10 @@ const STATUS_TEXT = {
 };
 
 /**
- * With `formEndpoint` configured, POSTs the form as JSON (Formspree-compatible).
- * Without it, hands the message to WhatsApp — inside the click, so no popup blocker.
+ * The endpoint comes from the form's data-endpoint attribute (filled from config at
+ * build time). With one, the form is POSTed as JSON (Formspree-compatible); without
+ * it, the message is handed to WhatsApp — inside the click, so no popup blocker.
+ * Without JavaScript the browser falls back to the form's native action (mailto:).
  */
 export function initContactForm(config) {
   const form = document.getElementById('contact-form');
@@ -24,10 +28,11 @@ export function initContactForm(config) {
     const data = Object.fromEntries(new FormData(form));
     if (data._gotcha) return; // honeypot: bots fill hidden fields
 
-    if (config.formEndpoint) {
-      await submitToEndpoint({ form, status, endpoint: config.formEndpoint, data });
+    const endpoint = form.dataset.endpoint?.trim();
+    if (endpoint) {
+      await submitToEndpoint({ form, status, endpoint, data });
     } else {
-      submitViaWhatsApp({ form, status, config, data });
+      submitViaWhatsApp({ status, config, data });
     }
   });
 }
@@ -42,6 +47,7 @@ async function submitToEndpoint({ form, status, endpoint, data }) {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
       body: JSON.stringify(data),
+      signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
     });
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     form.reset();

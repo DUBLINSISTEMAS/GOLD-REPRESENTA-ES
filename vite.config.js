@@ -61,6 +61,18 @@ function buildJsonLd(config) {
   return JSON.stringify(data).replace(/</g, '\\u003c');
 }
 
+const CHARSET_BYTE_LIMIT = 1024; // browsers only honor <meta charset> within the first 1024 bytes
+const PREPEND_MARKUP_OVERHEAD = 200; // tag markup around the CSP value and the inline script
+
+/** Prepending the CSP/script must not push <meta charset> past the 1024-byte window. */
+function assertCharsetStaysEarly(html, metaCsp) {
+  const charsetOffset = html.indexOf('charset');
+  const prependedBytes = Buffer.byteLength(metaCsp) + JS_CLASS_SNIPPET.length + PREPEND_MARKUP_OVERHEAD;
+  if (charsetOffset < 0 || charsetOffset + prependedBytes > CHARSET_BYTE_LIMIT) {
+    throw new Error('[site-config] <meta charset> ficaria além dos primeiros 1024 bytes — encurte a CSP.');
+  }
+}
+
 /** Files derived from siteConfig: served in dev and emitted into dist on build. */
 function generatedFiles(config) {
   const today = new Date().toISOString().slice(0, 10);
@@ -153,14 +165,17 @@ function siteConfigPlugin() {
         return escapeHtml(siteConfig[key] ?? '');
       });
 
-      const tags = [{ tag: 'script', children: JS_CLASS_SNIPPET, injectTo: 'head-prepend' }];
+      // A <meta> CSP only governs what comes after it, so it must be the first thing in <head>.
+      // Dev is skipped on purpose: the CSP would block Vite's HMR websocket.
+      const tags = [];
+      if (!isDev) {
+        tags.push({ tag: 'meta', attrs: { 'http-equiv': 'Content-Security-Policy', content: metaCsp }, injectTo: 'head-prepend' });
+      }
+      tags.push({ tag: 'script', children: JS_CLASS_SNIPPET, injectTo: 'head-prepend' });
       if (isIndex) {
         tags.push({ tag: 'script', attrs: { type: 'application/ld+json' }, children: jsonLd, injectTo: 'head' });
       }
-      if (!isDev) {
-        // Dev is skipped on purpose: the CSP would block Vite's HMR websocket.
-        tags.push({ tag: 'meta', attrs: { 'http-equiv': 'Content-Security-Policy', content: metaCsp }, injectTo: 'head' });
-      }
+      assertCharsetStaysEarly(replaced, metaCsp);
       return { html: replaced, tags };
     },
 

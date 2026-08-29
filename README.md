@@ -54,3 +54,5 @@ A CSP libera só o que o site usa: fontes do Google, o iframe do Google Maps e o
 - Mapa do Google só carrega depois de um clique (privacidade + ~600 KB a menos).
 - Sem JavaScript o conteúdo fica todo visível: o reveal só esconde elementos quando `<html class="js">`.
 - Nenhum `window.open` fora de um clique do usuário — a entrega para o WhatsApp é sempre um link/botão.
+- Formulário com três camadas: com `formEndpoint`, POST JSON (timeout de 10 s); sem ele, abre o WhatsApp com a mensagem; sem JavaScript, o `action` nativo é `mailto:` (ou o endpoint, se configurado) e um `<noscript>` explica.
+- Assistente virtual é um `role="dialog"` com `aria-modal`, foco preso enquanto aberto e fechamento por Esc.

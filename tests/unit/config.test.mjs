@@ -8,6 +8,12 @@ test('siteConfig exposes the fields the page binds to', () => {
   }
 });
 
+test('formAction falls back to mailto (text/plain) while formEndpoint is empty', () => {
+  assert.equal(siteConfig.formEndpoint, '');
+  assert.match(siteConfig.formAction, /^mailto:contato@/);
+  assert.equal(siteConfig.formEnctype, 'text/plain');
+});
+
 test('validateConfig warns about a placeholder WhatsApp number', () => {
   const warnings = validateConfig({ ...siteConfig, whatsappNumber: '5511999999999' });
   assert.ok(warnings.some((w) => /whatsappNumber/.test(w)));

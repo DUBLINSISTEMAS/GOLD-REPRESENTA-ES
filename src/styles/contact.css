@@ -106,6 +106,20 @@
   margin-bottom: 1.5rem;
 }
 
+.form-noscript {
+  margin-bottom: 1.5rem;
+  padding: 0.75rem 1rem;
+  background-color: var(--color-bg);
+  border-left: 4px solid var(--color-accent);
+  font-size: 0.9rem;
+  color: var(--color-text-light);
+}
+
+.form-noscript a {
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+
 .form-group {
   margin-bottom: 1.5rem;
 }

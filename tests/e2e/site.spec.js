@@ -134,6 +134,55 @@ test.describe('lead capture', () => {
     await expect(page.locator('#form-status a', { hasText: 'Abrir WhatsApp' })).toBeVisible();
   });
 
+  test('contact form POSTs JSON to a configured endpoint and reports success and failure', async ({ page }) => {
+    const ENDPOINT = 'https://formspree.io/f/e2e-test';
+    const received = [];
+    await page.route(ENDPOINT, (route) => {
+      received.push(route.request().postDataJSON());
+      route.fulfill({ status: 200, contentType: 'application/json', body: '{"ok":true}' });
+    });
+    await page.goto('/');
+    await page.evaluate((endpoint) => {
+      document.getElementById('contact-form').dataset.endpoint = endpoint;
+    }, ENDPOINT);
+
+    const form = page.locator('#contact-form');
+    const fill = async () => {
+      await form.getByLabel('Nome completo').fill('João Souza');
+      await form.getByLabel('E-mail').fill('joao@exemplo.com');
+      await form.getByLabel('Mensagem').fill('Quero um carro de 80 mil.');
+      await form.getByLabel(/Política de Privacidade/).check();
+    };
+
+    await fill();
+    await form.getByRole('button', { name: 'Enviar mensagem' }).click();
+    await expect(page.locator('#form-status')).toHaveText(/Mensagem enviada/);
+    await expect(form.getByLabel('Nome completo')).toHaveValue(''); // reset after success
+    expect(received).toHaveLength(1);
+    expect(received[0]).toMatchObject({ name: 'João Souza', email: 'joao@exemplo.com', consent: 'sim' });
+
+    // Endpoint failure: visitor gets an error, button is usable again.
+    await page.route(ENDPOINT, (route) => route.fulfill({ status: 500, body: 'nope' }));
+    await fill();
+    await form.getByRole('button', { name: 'Enviar mensagem' }).click();
+    await expect(page.locator('#form-status')).toHaveText(/Não foi possível enviar/);
+    await expect(form.getByRole('button', { name: 'Enviar mensagem' })).toBeEnabled();
+  });
+
+  test('degrades without JavaScript: content visible, form falls back to mailto', async ({ browser, baseURL }) => {
+    const context = await browser.newContext({ javaScriptEnabled: false });
+    const page = await context.newPage();
+    await page.goto(`${baseURL}/`);
+
+    await expect(page.locator('h1')).toBeVisible();
+    await expect(page.locator('#sobre h2')).toBeVisible(); // reveal must not hide content
+    await expect(page.locator('#contact-form')).toHaveAttribute('action', /^mailto:/);
+    await expect(page.locator('#contact-form')).toHaveAttribute('enctype', 'text/plain');
+    await expect(page.getByText(/sem JavaScript/)).toBeVisible();
+
+    await context.close();
+  });
+
   test('form fields carry name and autocomplete attributes', async ({ page }) => {
     await page.goto('/');
     const fields = await page.$$eval(

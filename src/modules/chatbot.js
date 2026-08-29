@@ -105,10 +105,14 @@ export function initChatbot(config) {
     askInterest();
   }
 
-  elements.toggle.addEventListener('click', () => setOpen(!elements.container.classList.contains('active')));
+  const isOpen = () => elements.container.classList.contains('active');
+
+  elements.toggle.addEventListener('click', () => setOpen(!isOpen()));
   elements.close.addEventListener('click', () => setOpen(false));
   document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape' && elements.container.classList.contains('active')) setOpen(false);
+    if (!isOpen()) return;
+    if (event.key === 'Escape') setOpen(false);
+    if (event.key === 'Tab') trapFocus(elements.container, event);
   });
 
   elements.form.addEventListener('submit', (event) => {
@@ -118,6 +122,28 @@ export function initChatbot(config) {
     elements.input.value = '';
     pickAmount(value);
   });
+}
+
+const FOCUSABLE = 'a[href], button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
+/** Keeps Tab / Shift+Tab inside the open dialog (on mobile it covers the whole page). */
+function trapFocus(container, event) {
+  const items = [...container.querySelectorAll(FOCUSABLE)].filter((el) => el.offsetParent !== null);
+  if (items.length === 0) return;
+  const first = items[0];
+  const last = items[items.length - 1];
+  const active = document.activeElement;
+
+  if (!container.contains(active)) {
+    event.preventDefault();
+    first.focus();
+  } else if (event.shiftKey && active === first) {
+    event.preventDefault();
+    last.focus();
+  } else if (!event.shiftKey && active === last) {
+    event.preventDefault();
+    first.focus();
+  }
 }
 
 function createChatUi({ messages, input, send }) {

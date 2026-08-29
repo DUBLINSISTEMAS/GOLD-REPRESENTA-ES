@@ -44,6 +44,9 @@ function derive(config) {
     phoneDisplay: formatPhoneBR(digits),
     phoneE164: digits ? `+${digits}` : '',
     whatsappUrl: buildWhatsAppUrl(digits, config.defaultWhatsappMessage),
+    /** Sem JS o navegador usa o action nativo: endpoint configurado ou, na falta dele, o cliente de e-mail. */
+    formAction: config.formEndpoint || `mailto:${config.email}?subject=${encodeURIComponent('Contato pelo site')}`,
+    formEnctype: config.formEndpoint ? 'application/x-www-form-urlencoded' : 'text/plain',
     mapsUrl: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(config.mapsQuery)}`,
     mapsEmbedUrl: `https://www.google.com/maps?q=${encodeURIComponent(config.mapsQuery)}&z=15&output=embed`,
     locationDisplay: location,
