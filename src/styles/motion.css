@@ -30,7 +30,12 @@
   transform: none;
 }
 
-/* ===== Movimento reduzido ===== */
+/* ===== Movimento reduzido =====
+ * Desativa só o movimento CONTÍNUO (vídeo, marquee, pulsos, flutuação) — o que de
+ * fato incomoda quem pede menos movimento. Os reveals são fades curtos de disparo
+ * único e permanecem ativos por decisão do cliente (muitas máquinas Windows vêm
+ * com "efeitos de animação" desligado sem o usuário saber).
+ */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -38,15 +43,13 @@
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
-    transition-delay: 0ms !important;
     scroll-behavior: auto !important;
   }
 
   .js .reveal,
   .js .reveal-left,
   .js .reveal-right {
-    opacity: 1;
-    transform: none;
+    transition-duration: 0.8s !important;
   }
 
   .gallery-track {
