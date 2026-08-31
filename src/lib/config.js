@@ -32,6 +32,12 @@ const base = {
   /** Coordenadas do escritório, conforme o próprio Perfil da Empresa. */
   latitude: -4.5717343,
   longitude: -44.6007211,
+  /**
+   * Código da verificação por meta tag do Google Search Console (só o valor de
+   * "content", sem a tag). Vazio = nenhuma meta é injetada. Verificar por DNS TXT
+   * é melhor (cobre www e apex de uma vez) e dispensa este campo.
+   */
+  googleSiteVerification: '',
   /** Nome de quem assume a conversa no WhatsApp. */
   specialistName: 'Anderson',
   /** Administradora parceira. Vazio = a nota na seção de contemplados não aparece. */

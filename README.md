@@ -42,6 +42,21 @@ Qualquer hospedagem estática serve: rode `npm run build` e publique a pasta `di
 
 **Vercel (host escolhido):** basta importar o repositório — o preset "Vite" detecta `vite build` e `dist/` sozinho. Os cabeçalhos de segurança e o cache vêm do `vercel.json` na raiz (a Vercel ignora o `dist/_headers`). Se `buildCsp()` mudar (ex.: novo `formEndpoint`), o build avisa que o `vercel.json` precisa ser atualizado junto.
 
+## Google Search Console
+
+O site já serve `robots.txt` e `sitemap.xml` (gerados do `siteUrl`), sem nada bloqueando a indexação. Falta só reivindicar a propriedade — o cadastro em si exige login na conta Google do cliente.
+
+**Recomendado — propriedade de domínio (DNS):** cobre apex, `www` e qualquer subdomínio de uma vez.
+
+1. [search.google.com/search-console](https://search.google.com/search-console) → *Adicionar propriedade* → **Domínio** → `goldrepresentacoes.site`
+2. Copie o registro TXT que o Google mostrar
+3. No painel da Vercel: *Domains* → `goldrepresentacoes.site` → *DNS Records* → **Add**: tipo `TXT`, nome `@`, valor colado
+4. Volte ao Search Console e clique em *Verificar* (a propagação costuma levar minutos)
+
+**Alternativa — meta tag:** preencha `googleSiteVerification` em `src/lib/config.js` com o valor de `content` que o Google fornecer e publique. A meta só é injetada quando o campo não está vazio.
+
+Depois de verificar: *Sitemaps* → enviar `sitemap.xml`, e usar a *Inspeção de URL* na home para pedir a indexação.
+
 ## Cabeçalhos de segurança
 
 O build gera `dist/_headers` (formato Netlify / Cloudflare Pages) com CSP, `X-Frame-Options`, `nosniff`, `Referrer-Policy`, `Permissions-Policy` e HSTS, e injeta a mesma CSP como `<meta http-equiv>` nas páginas (fallback para hosts que ignoram o arquivo — a meta não cobre `frame-ancestors`).

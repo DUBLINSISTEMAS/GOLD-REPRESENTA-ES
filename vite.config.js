@@ -225,6 +225,13 @@ function siteConfigPlugin() {
       }
       tags.push({ tag: 'script', children: JS_CLASS_SNIPPET, injectTo: 'head-prepend' });
       if (isIndex) {
+        if (siteConfig.googleSiteVerification) {
+          tags.push({
+            tag: 'meta',
+            attrs: { name: 'google-site-verification', content: siteConfig.googleSiteVerification },
+            injectTo: 'head',
+          });
+        }
         tags.push({ tag: 'script', attrs: { type: 'application/ld+json' }, children: jsonLd, injectTo: 'head' });
         tags.push({ tag: 'script', attrs: { type: 'application/ld+json' }, children: faqJsonLd, injectTo: 'head' });
       }
