@@ -233,20 +233,53 @@ test.describe('mobile navigation', () => {
     await expect(menu).toBeHidden();
   });
 
-  test('hero video is not attached on mobile', async ({ page }) => {
+});
+
+test.describe('hero video', () => {
+  test('is attached and plays on every screen size, phones included', async ({ page }) => {
     await page.goto('/');
-    await page.waitForTimeout(1500);
+    await expect(page.locator('.hero-bg-video source')).toHaveCount(1, { timeout: 5000 });
+    await expect
+      .poll(() => page.evaluate(() => document.querySelector('.hero-bg-video').currentTime), { timeout: 8000 })
+      .toBeGreaterThan(0);
+  });
+
+  test('the poster is the video first frame, so there is no flash when it starts', async ({ page }) => {
+    await page.goto('/');
+    const poster = await page.getAttribute('.hero-bg-video', 'poster');
+    expect(poster).toMatch(/hero-poster/);
+    // O poster é gerado do vídeo por `npm run video`: mesma cena, mesma moldura.
+    const [posterSize, videoRatio] = await Promise.all([
+      page.evaluate(async (src) => {
+        const img = new Image();
+        img.src = src;
+        await img.decode();
+        return img.naturalWidth / img.naturalHeight;
+      }, poster),
+      page.evaluate(async () => {
+        const v = document.querySelector('.hero-bg-video');
+        if (!v.videoWidth) await new Promise((r) => v.addEventListener('loadeddata', r, { once: true }));
+        return v.videoWidth / v.videoHeight;
+      }),
+    ]);
+    expect(Math.abs(posterSize - videoRatio)).toBeLessThan(0.02);
+  });
+
+  test('is skipped when the visitor asked to save data', async ({ page }) => {
+    await page.addInitScript(() => {
+      Object.defineProperty(navigator, 'connection', {
+        value: { saveData: true, effectiveType: '4g' },
+        configurable: true,
+      });
+    });
+    await page.goto('/');
+    await page.waitForTimeout(2500);
     await expect(page.locator('.hero-bg-video source')).toHaveCount(0);
   });
 });
 
 test.describe('desktop hero', () => {
   test.skip(({ isMobile }) => isMobile, 'desktop only');
-
-  test('hero video is attached once the page is idle', async ({ page }) => {
-    await page.goto('/');
-    await expect(page.locator('.hero-bg-video source')).toHaveCount(1, { timeout: 5000 });
-  });
 
   test('nav link glides to the section and updates the URL hash', async ({ page }) => {
     await page.goto('/');

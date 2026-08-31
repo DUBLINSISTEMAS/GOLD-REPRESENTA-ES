@@ -1,20 +1,22 @@
-const WIDE_SCREEN_QUERY = '(min-width: 768px)';
 const REDUCED_MOTION_QUERY = '(prefers-reduced-motion: reduce)';
+const SLOW_CONNECTIONS = new Set(['slow-2g', '2g', '3g']);
 const IDLE_TIMEOUT_MS = 1500;
 
 /**
- * Attaches the hero video on wide screens, when the visitor has not asked for
- * reduced motion or data saving, and only after the page is idle — so it never
- * competes with the first paint. Phones keep the poster (64 KB).
+ * Attaches the hero video on every screen size — phones included — once the page
+ * is idle, so it never competes with the first paint. Only a slow connection,
+ * Save-Data or a reduced-motion preference keeps the poster instead. The poster
+ * is the video's own first frame, so the swap is invisible either way.
  */
 export function initHeroVideo() {
   const video = document.querySelector('.hero-bg-video[data-src]');
   if (!video) return;
 
-  const saveData = navigator.connection?.saveData === true;
+  const connection = navigator.connection;
+  const saveData = connection?.saveData === true;
+  const slowConnection = SLOW_CONNECTIONS.has(connection?.effectiveType);
   const reducedMotion = window.matchMedia(REDUCED_MOTION_QUERY).matches;
-  const isWideScreen = window.matchMedia(WIDE_SCREEN_QUERY).matches;
-  if (saveData || reducedMotion || !isWideScreen) return;
+  if (saveData || slowConnection || reducedMotion) return;
 
   const attach = () => {
     // Set as a property too: the autoplay policy reads the property, not the attribute.

@@ -54,7 +54,8 @@ A CSP libera só o que o site usa: o iframe do Google Maps, o `wa.me` (destino d
 
 ## Decisões técnicas
 
-- Vídeo do hero (1,46 MB) só é anexado em telas ≥ 768 px, sem `prefers-reduced-motion`/`Save-Data`, e depois de a página ficar ociosa. Celular vê o poster (64 KB).
+- Vídeo do hero (1,46 MB) é anexado em **todas as telas, celular incluído**, depois de a página ficar ociosa. Só não carrega com `Save-Data`, `prefers-reduced-motion` ou conexão lenta (`effectiveType` 2g/3g) — nesses casos fica o poster.
+- O poster (`public/img/hero-poster-1024.webp`, 28 KB) é o **primeiro frame do próprio vídeo**, gerado por `npm run video`. Antes vinha de `hero_bg.jpg`, uma imagem diferente: ela aparecia e era substituída quando o vídeo começava, o que se via como um flash. Não regenere o poster pelo `npm run images`.
 - O MP4 **precisa** ser gerado por `npm run video`: o original tinha o índice (`moov`) no fim do arquivo, o que fazia o vídeo começar tarde ou não começar. O script move o índice para o início (`+faststart`) e descarta o áudio (a tag é muda). Um teste unitário falha se o arquivo publicado perder o faststart.
 - `hero-video.js` não confia numa única chamada de `play()`: repete a tentativa em `canplay`, ao voltar para a aba e no primeiro gesto do visitante (autoplay bloqueado). Enquanto não tocar, o poster continua visível.
 - Sem mapa incorporado: a localização é um botão que abre o Perfil da Empresa no Google. Isso tira ~600 KB e o último iframe de terceiros da página — a CSP pôde fechar em `frame-src 'none'`. O mesmo link entra no JSON-LD (`hasMap` e `sameAs`) para o Google casar o site com a ficha do negócio.

@@ -26,7 +26,7 @@ const resizeJobs = [
   { file: 'logo_brilhante.png', name: 'logo', widths: [180, 360], quality: LOGO_QUALITY },
   { file: 'logo.png', name: 'logo-footer', widths: [200, 400], quality: LOGO_QUALITY },
   { file: 'reception.png', name: 'reception', widths: [640, 1280], quality: PHOTO_QUALITY },
-  { file: 'hero_bg.jpg', name: 'hero-poster', widths: [1024], quality: 70 },
+  // O poster do hero não sai daqui: é o primeiro frame do vídeo (npm run video).
   ...Array.from({ length: 12 }, (_, i) => ({
     file: `clientes/cliente_${i + 1}.png`,
     name: `clientes/cliente_${i + 1}`,
