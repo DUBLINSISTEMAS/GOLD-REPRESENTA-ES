@@ -1,5 +1,6 @@
 import { buildLeadMessage } from '../lib/messages.js';
 import { buildWhatsAppUrl } from '../lib/whatsapp.js';
+import { createExternalLink } from './dom-utils.js';
 
 const BOT_DELAY_MS = 700;
 const STEP = { INTEREST: 'interest', AMOUNT: 'amount', DONE: 'done' };
@@ -8,6 +9,8 @@ const INTERESTS = [
   { label: 'Comprar imóvel', value: 'Imóvel' },
   { label: 'Comprar veículo', value: 'Veículo' },
   { label: 'Investir', value: 'Investimento' },
+  { label: 'Crédito rural', value: 'Crédito rural' },
+  { label: 'Outro objetivo', value: 'Outro objetivo' },
 ];
 
 const AMOUNTS = ['Até R$ 50 mil', 'R$ 50 a 150 mil', 'R$ 150 a 300 mil', 'Acima de R$ 300 mil'];
@@ -66,8 +69,9 @@ export function initChatbot(config) {
     state.lead.interesse = option.value;
     state.step = STEP.AMOUNT;
     await wait(BOT_DELAY_MS);
+    const alvo = option.value === 'Outro objetivo' ? 'o seu objetivo' : option.value.toLowerCase();
     ui.addBot(
-      `Ótimo! Qual o valor aproximado da carta de crédito para ${option.value.toLowerCase()}? Escolha uma faixa ou digite.`,
+      `Ótimo! Qual o valor aproximado da carta de crédito para ${alvo}? Escolha uma faixa ou digite.`,
       AMOUNTS.map((amount) => ({ label: amount, onSelect: () => pickAmount(amount) })),
     );
     ui.setInputEnabled(true);
@@ -90,10 +94,10 @@ export function initChatbot(config) {
       );
       ui.addLink('Abrir WhatsApp', url);
     } catch (error) {
-      // Misconfigured number: fall back to e-mail instead of failing silently.
+      // Misconfigured number: fall back to Instagram instead of failing silently.
       console.error('[chatbot] WhatsApp indisponível:', error);
-      ui.addBot(`Perfeito! Para continuar, fale com ${config.specialistName} por e-mail com a sua simulação.`);
-      ui.addLink('Enviar e-mail', `mailto:${config.email}?subject=${encodeURIComponent('Simulação de carta de crédito')}&body=${encodeURIComponent(message)}`);
+      ui.addBot(`Perfeito! Para continuar, chame ${config.specialistName} pelo Instagram com a sua simulação.`);
+      ui.addLink('Abrir Instagram', config.instagramUrl);
     }
     await wait(BOT_DELAY_MS);
     ui.addBot('Quer simular outra coisa?', [{ label: 'Recomeçar', onSelect: restart }]);
@@ -183,12 +187,7 @@ function createChatUi({ messages, input, send }) {
     },
 
     addLink(label, href) {
-      const link = document.createElement('a');
-      link.className = 'btn btn-primary chat-wa-link';
-      link.href = href;
-      link.target = '_blank';
-      link.rel = 'noopener';
-      link.textContent = label;
+      const link = createExternalLink(href, label, 'btn btn-primary chat-wa-link');
       messages.appendChild(link);
       link.focus({ preventScroll: true });
       scrollToBottom();

@@ -20,9 +20,15 @@ test('buildLeadMessage trims and collapses whitespace in user input', () => {
   assert.match(message, /\*200 mil\*/);
 });
 
-test('buildContactMessage formats the contact form as a WhatsApp message', () => {
-  const message = buildContactMessage({ name: 'Maria Silva', email: 'maria@exemplo.com', message: 'Quero simular.' });
-  assert.match(message, /Maria Silva/);
-  assert.match(message, /maria@exemplo\.com/);
-  assert.match(message, /Quero simular\./);
+test('buildContactMessage formats name, interest and message for WhatsApp', () => {
+  const message = buildContactMessage({ name: 'Maria Silva', interesse: 'Crédito rural', message: 'Quero simular.' });
+  assert.match(message, /\*Nome:\* Maria Silva/);
+  assert.match(message, /\*Interesse:\* Crédito rural/);
+  assert.match(message, /\*Mensagem:\* Quero simular\./);
+});
+
+test('buildContactMessage omits the message line when it is empty', () => {
+  const message = buildContactMessage({ name: 'João', interesse: 'Imóvel', message: '   ' });
+  assert.match(message, /\*Interesse:\* Imóvel/);
+  assert.doesNotMatch(message, /\*Mensagem:\*/);
 });

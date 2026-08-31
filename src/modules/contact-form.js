@@ -1,12 +1,14 @@
 import { buildContactMessage } from '../lib/messages.js';
 import { buildWhatsAppUrl } from '../lib/whatsapp.js';
+import { createExternalLink } from './dom-utils.js';
 
 const FETCH_TIMEOUT_MS = 10_000;
 
 const STATUS_TEXT = {
   sending: 'Enviando…',
   success: 'Mensagem enviada! Em breve entraremos em contato.',
-  error: 'Não foi possível enviar agora. Tente pelo WhatsApp ou envie um e-mail.',
+  error: 'Não foi possível enviar agora. Chame a gente direto no WhatsApp pelo botão verde.',
+  unavailable: 'O envio está indisponível no momento. Chame a gente pelo Instagram:',
   whatsapp: 'Abrimos o WhatsApp com a sua mensagem. Se não abriu, toque no botão abaixo.',
 };
 
@@ -14,7 +16,8 @@ const STATUS_TEXT = {
  * The endpoint comes from the form's data-endpoint attribute (filled from config at
  * build time). With one, the form is POSTed as JSON (Formspree-compatible); without
  * it, the message is handed to WhatsApp — inside the click, so no popup blocker.
- * Without JavaScript the browser falls back to the form's native action (mailto:).
+ * Without JavaScript the browser falls back to the form's native action
+ * (the endpoint, or a GET to wa.me that opens the chat without the fields).
  */
 export function initContactForm(config) {
   const form = document.getElementById('contact-form');
@@ -67,24 +70,14 @@ function submitViaWhatsApp({ status, config, data }) {
   } catch (error) {
     // Misconfigured number: never leave the visitor without a way to reach us.
     console.error('[contact-form] WhatsApp indisponível:', error);
-    setStatus(status, STATUS_TEXT.error, 'error');
-    status.appendChild(createLink(`mailto:${config.email}`, 'Enviar por e-mail'));
+    setStatus(status, STATUS_TEXT.unavailable, 'error');
+    status.appendChild(createExternalLink(config.instagramUrl, 'Chamar no Instagram', 'btn btn-outline-dark'));
     return;
   }
 
   window.open(url, '_blank', 'noopener');
   setStatus(status, STATUS_TEXT.whatsapp, 'success');
-  status.appendChild(createLink(url, 'Abrir WhatsApp'));
-}
-
-function createLink(href, label) {
-  const link = document.createElement('a');
-  link.href = href;
-  link.target = '_blank';
-  link.rel = 'noopener';
-  link.className = 'btn btn-outline-dark form-status-link';
-  link.textContent = label;
-  return link;
+  status.appendChild(createExternalLink(url, 'Abrir WhatsApp', 'btn btn-outline-dark'));
 }
 
 function setStatus(element, text, kind = '') {

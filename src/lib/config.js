@@ -5,8 +5,7 @@
  * tokens like {{whatsappUrl}}) and used by the chatbot / contact form at runtime.
  * This file must stay plain ESM: it runs in Node (Vite config, tests) and in the browser.
  *
- * TODO antes de publicar: preencher whatsappNumber, conferir email/siteUrl,
- * addressLine e — se a Gold representa uma administradora — administradora.
+ * TODO antes de publicar: conferir siteUrl e addressLine.
  */
 import { buildWhatsAppUrl, formatPhoneBR, isPlaceholderNumber, normalizePhone } from './whatsapp.js';
 
@@ -14,9 +13,10 @@ const base = {
   siteName: 'Gold Representações',
   /** Sem barra no final. Usado em canonical, Open Graph e sitemap. */
   siteUrl: 'https://goldrepresentacoes.com.br',
-  /** DDI + DDD + número, só dígitos. 5511999999999 é PLACEHOLDER. */
-  whatsappNumber: '5511999999999',
-  email: 'contato@goldrepresentacoes.com.br',
+  /** DDI + DDD + número, só dígitos. */
+  whatsappNumber: '5586998152406',
+  /** Ainda não existe e-mail comercial. Vazio = nenhum canal de e-mail aparece no site. */
+  email: '',
   city: 'Pedreiras',
   state: 'MA',
   /** Rua, número e bairro. Vazio = mostra só cidade/UF. */
@@ -26,8 +26,8 @@ const base = {
   instagramUrl: 'https://www.instagram.com/gold_representacoes2026/',
   /** Nome de quem assume a conversa no WhatsApp. */
   specialistName: 'Anderson',
-  /** Ex.: 'Multimarcas Consórcios'. Vazio = a nota sobre a administradora não aparece. */
-  administradora: '',
+  /** Administradora parceira. Vazio = a nota na seção de contemplados não aparece. */
+  administradora: 'Multimarcas Consórcios',
   /**
    * Endpoint que recebe o formulário via POST (ex.: 'https://formspree.io/f/xxxxxxxx').
    * Vazio = o formulário abre o WhatsApp com a mensagem preenchida.
@@ -44,14 +44,15 @@ function derive(config) {
     phoneDisplay: formatPhoneBR(digits),
     phoneE164: digits ? `+${digits}` : '',
     whatsappUrl: buildWhatsAppUrl(digits, config.defaultWhatsappMessage),
-    /** Sem JS o navegador usa o action nativo: endpoint configurado ou, na falta dele, o cliente de e-mail. */
-    formAction: config.formEndpoint || `mailto:${config.email}?subject=${encodeURIComponent('Contato pelo site')}`,
-    formEnctype: config.formEndpoint ? 'application/x-www-form-urlencoded' : 'text/plain',
+    /** Sem JS o navegador usa o action nativo: endpoint configurado ou, na falta dele, o chat do WhatsApp (GET). */
+    formAction: config.formEndpoint || `https://wa.me/${digits}`,
+    formMethod: config.formEndpoint ? 'POST' : 'GET',
+    formEnctype: 'application/x-www-form-urlencoded',
     mapsUrl: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(config.mapsQuery)}`,
     mapsEmbedUrl: `https://www.google.com/maps?q=${encodeURIComponent(config.mapsQuery)}&z=15&output=embed`,
     locationDisplay: location,
     administradoraNote: config.administradora
-      ? `Contemplações realizadas por meio da administradora ${config.administradora}, autorizada pelo Banco Central do Brasil.`
+      ? `Contemplações realizadas por meio da ${config.administradora}, administradora parceira da Gold.`
       : '',
     currentYear: String(new Date().getFullYear()),
   };
@@ -65,11 +66,6 @@ export function validateConfig(config) {
   if (isPlaceholderNumber(config.whatsappNumber)) {
     warnings.push(
       'whatsappNumber ainda é um placeholder — substitua pelo WhatsApp real (DDI+DDD+número, só dígitos) em src/lib/config.js.',
-    );
-  }
-  if (!config.formEndpoint) {
-    warnings.push(
-      'formEndpoint vazio — o formulário de contato vai abrir o WhatsApp (fallback). Configure um endpoint (ex.: Formspree) para receber por e-mail.',
     );
   }
   if (!config.siteUrl) {

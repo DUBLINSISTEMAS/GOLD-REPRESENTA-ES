@@ -87,10 +87,14 @@
   display: flex;
   flex-direction: column;
   line-height: 1.25;
+  min-width: 0; /* permite o handle encolher dentro do flex sem estourar a moldura */
 }
 
 .ig-identity strong {
-  font-size: 0.85rem;
+  font-size: 0.78rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .ig-identity span {

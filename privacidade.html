@@ -10,9 +10,8 @@
     <meta name="robots" content="noindex, follow" />
     <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/inter-latin.woff2" crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/playfair-latin.woff2" crossorigin />
   </head>
   <body class="page-legal">
     <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
@@ -39,21 +38,21 @@
       <p>A <strong>{{siteName}}</strong> ("Gold", "nós") respeita a sua privacidade. Esta política explica quais dados pessoais coletamos por meio do site <a href="{{siteUrl}}/">{{siteUrl}}</a>, por que coletamos e quais são os seus direitos, em conformidade com a Lei Geral de Proteção de Dados (LGPD, Lei nº 13.709/2018).</p>
 
       <h2>1. Quem é o controlador</h2>
-      <p>{{siteName}}, com atendimento em {{locationDisplay}}. Canal para assuntos de privacidade: <a href="mailto:{{email}}">{{email}}</a>.</p>
+      <p>{{siteName}}, com atendimento em {{locationDisplay}}. Canal para assuntos de privacidade: WhatsApp <a href="{{whatsappUrl}}" target="_blank" rel="noopener">{{phoneDisplay}}</a>.</p>
 
       <h2>2. Quais dados coletamos</h2>
       <ul>
-        <li><strong>Formulário de contato:</strong> nome, e-mail e a mensagem que você escreve.</li>
-        <li><strong>Assistente virtual:</strong> o objetivo escolhido (imóvel, veículo ou investimento) e a faixa de valor informada. Esses dados só saem do seu navegador quando você toca em "Abrir WhatsApp".</li>
+        <li><strong>Formulário de contato:</strong> nome, a modalidade de crédito escolhida e a mensagem que você escreve.</li>
+        <li><strong>Assistente virtual:</strong> o objetivo escolhido (imóvel, veículo, investimento, crédito rural ou outro) e a faixa de valor informada. Esses dados só saem do seu navegador quando você toca em "Abrir WhatsApp".</li>
         <li><strong>WhatsApp:</strong> ao iniciar uma conversa, o WhatsApp (Meta Platforms) recebe seu número e a mensagem, conforme a política de privacidade dele.</li>
-        <li><strong>Dados de navegação:</strong> o site carrega fontes do Google Fonts, o que envia seu endereço IP ao Google. O mapa do Google Maps só é carregado se você clicar em "Carregar mapa".</li>
+        <li><strong>Dados de navegação:</strong> as fontes do site são servidas do nosso próprio domínio (nada é enviado ao Google ao abrir a página). O mapa do Google Maps só é carregado se você clicar em "Carregar mapa" — aí sim o Google recebe seu endereço IP.</li>
       </ul>
       <p>Não usamos cookies de rastreamento nem ferramentas de publicidade neste site.</p>
 
       <h2>3. Para que usamos os dados</h2>
       <ul>
         <li>Responder ao seu contato e preparar a simulação que você pediu.</li>
-        <li>Dar continuidade ao atendimento comercial pelo WhatsApp, e-mail ou telefone.</li>
+        <li>Dar continuidade ao atendimento comercial pelo WhatsApp ou telefone.</li>
         <li>Cumprir obrigações legais e regulatórias aplicáveis à intermediação de consórcios.</li>
       </ul>
       <p>Bases legais: consentimento (art. 7º, I) e procedimentos preliminares a contrato do qual você é parte (art. 7º, V).</p>
@@ -65,7 +64,7 @@
       <p>Mantemos seus dados enquanto durar o atendimento e pelo prazo necessário para cumprir obrigações legais. Depois disso, eles são excluídos ou anonimizados.</p>
 
       <h2>6. Seus direitos</h2>
-      <p>Você pode, a qualquer momento, pedir confirmação de tratamento, acesso, correção, anonimização, portabilidade ou exclusão dos seus dados, além de revogar o consentimento (art. 18 da LGPD). Basta escrever para <a href="mailto:{{email}}">{{email}}</a>.</p>
+      <p>Você pode, a qualquer momento, pedir confirmação de tratamento, acesso, correção, anonimização, portabilidade ou exclusão dos seus dados, além de revogar o consentimento (art. 18 da LGPD). Basta chamar no WhatsApp <a href="{{whatsappUrl}}" target="_blank" rel="noopener">{{phoneDisplay}}</a>.</p>
 
       <h2>7. Segurança</h2>
       <p>Adotamos medidas técnicas e administrativas para proteger seus dados contra acesso não autorizado, perda ou alteração. Nenhum sistema é infalível; se identificarmos um incidente relevante, você e a ANPD serão comunicados conforme a lei.</p>

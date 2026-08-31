@@ -1,4 +1,5 @@
-/* Ponto de entrada dos estilos. A ordem importa: tokens → base → componentes → motion. */
+/* Ponto de entrada dos estilos. A ordem importa: fontes → tokens → base → componentes → motion. */
+@import './styles/fonts.css';
 @import './styles/tokens.css';
 @import './styles/base.css';
 @import './styles/buttons.css';
@@ -7,9 +8,11 @@
 @import './styles/about.css';
 @import './styles/services.css';
 @import './styles/gallery.css';
+@import './styles/faq.css';
 @import './styles/contact.css';
 @import './styles/instagram.css';
 @import './styles/footer.css';
 @import './styles/floating.css';
+@import './styles/chatbot.css';
 @import './styles/legal.css';
 @import './styles/motion.css';

@@ -1,7 +1,9 @@
 import { defineConfig } from 'vite';
 import { createHash } from 'node:crypto';
+import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { siteConfig, validateConfig } from './src/lib/config.js';
+import { faqItems } from './src/lib/faq.js';
 
 const TOKEN = /\{\{\s*(\w+)\s*\}\}/g;
 const HTML_ESCAPES = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
@@ -21,13 +23,14 @@ function buildCsp(config, { forHeader }) {
     "base-uri 'self'",
     "object-src 'none'",
     `script-src 'self' ${snippetHash}`,
-    "style-src 'self' https://fonts.googleapis.com",
-    "font-src 'self' https://fonts.gstatic.com",
+    "style-src 'self'",
+    "font-src 'self'",
     "img-src 'self' data:",
     "media-src 'self'",
     'frame-src https://www.google.com',
     `connect-src 'self' ${formOrigin}`,
-    `form-action 'self' ${formOrigin}`,
+    // wa.me: destino do action nativo do formulário quando não há formEndpoint (fallback sem JS).
+    `form-action 'self' https://wa.me ${formOrigin}`,
     'upgrade-insecure-requests',
   ];
   if (forHeader) directives.push("frame-ancestors 'none'"); // not allowed in <meta>
@@ -52,13 +55,51 @@ function buildJsonLd(config) {
     image: `${config.siteUrl}/og-image.jpg`,
     description: 'Representação de cartas de crédito por consórcio para imóveis, veículos e investimentos.',
     telephone: config.phoneE164,
-    email: config.email,
+    ...(config.email && { email: config.email }),
     address,
     areaServed: `${config.city} - ${config.state}`,
     sameAs: [config.instagramUrl],
   };
   // "<" escaped so a value can never close the <script> element.
   return JSON.stringify(data).replace(/</g, '\\u003c');
+}
+
+/** FAQPage schema from the same data as the visible <details> section (see src/lib/faq.js). */
+function buildFaqJsonLd() {
+  const data = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqItems.map(({ question, answer }) => ({
+      '@type': 'Question',
+      name: question,
+      acceptedAnswer: { '@type': 'Answer', text: answer },
+    })),
+  };
+  return JSON.stringify(data).replace(/</g, '\\u003c');
+}
+
+/**
+ * Vercel ignores the _headers file (Netlify/Cloudflare format) and reads a static
+ * vercel.json from the repo root instead. That file can't be generated at build time,
+ * so this warns whenever its CSP drifts from the one buildCsp() produces.
+ */
+function checkVercelCspDrift(expectedCsp) {
+  let raw;
+  try {
+    raw = readFileSync(new URL('./vercel.json', import.meta.url), 'utf8');
+  } catch {
+    return 'vercel.json não encontrado — na Vercel o site subiria sem cabeçalhos de segurança (o _headers é ignorado lá).';
+  }
+  try {
+    const headers = (JSON.parse(raw).headers ?? []).flatMap((rule) => rule.headers ?? []);
+    const csp = headers.find((h) => h.key?.toLowerCase() === 'content-security-policy')?.value;
+    if (csp !== expectedCsp) {
+      return 'a Content-Security-Policy em vercel.json difere da gerada por buildCsp() — copie o valor novo para vercel.json.';
+    }
+  } catch {
+    return 'vercel.json existe mas não é JSON válido.';
+  }
+  return '';
 }
 
 const CHARSET_BYTE_LIMIT = 1024; // browsers only honor <meta charset> within the first 1024 bytes
@@ -143,6 +184,7 @@ function generatedFiles(config) {
 function siteConfigPlugin() {
   const files = generatedFiles(siteConfig);
   const jsonLd = buildJsonLd(siteConfig);
+  const faqJsonLd = buildFaqJsonLd();
   const metaCsp = buildCsp(siteConfig, { forHeader: false });
 
   return {
@@ -152,6 +194,8 @@ function siteConfigPlugin() {
       for (const warning of validateConfig(siteConfig)) {
         console.warn(`\n[site-config] AVISO: ${warning}`);
       }
+      const drift = checkVercelCspDrift(buildCsp(siteConfig, { forHeader: true }));
+      if (drift) console.warn(`\n[site-config] AVISO: ${drift}`);
     },
 
     transformIndexHtml(html, ctx) {
@@ -174,6 +218,7 @@ function siteConfigPlugin() {
       tags.push({ tag: 'script', children: JS_CLASS_SNIPPET, injectTo: 'head-prepend' });
       if (isIndex) {
         tags.push({ tag: 'script', attrs: { type: 'application/ld+json' }, children: jsonLd, injectTo: 'head' });
+        tags.push({ tag: 'script', attrs: { type: 'application/ld+json' }, children: faqJsonLd, injectTo: 'head' });
       }
       assertCharsetStaysEarly(replaced, metaCsp);
       return { html: replaced, tags };

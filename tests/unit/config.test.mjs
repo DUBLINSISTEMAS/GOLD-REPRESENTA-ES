@@ -8,10 +8,15 @@ test('siteConfig exposes the fields the page binds to', () => {
   }
 });
 
-test('formAction falls back to mailto (text/plain) while formEndpoint is empty', () => {
+test('formAction falls back to a GET to wa.me while formEndpoint is empty', () => {
   assert.equal(siteConfig.formEndpoint, '');
-  assert.match(siteConfig.formAction, /^mailto:contato@/);
-  assert.equal(siteConfig.formEnctype, 'text/plain');
+  assert.match(siteConfig.formAction, /^https:\/\/wa\.me\/\d{12,13}$/);
+  assert.equal(siteConfig.formMethod, 'GET');
+});
+
+test('whatsappNumber is the real number, not a placeholder', () => {
+  assert.equal(siteConfig.whatsappNumber, '5586998152406');
+  assert.equal(siteConfig.phoneDisplay, '+55 (86) 99815-2406');
 });
 
 test('validateConfig warns about a placeholder WhatsApp number', () => {
@@ -19,16 +24,6 @@ test('validateConfig warns about a placeholder WhatsApp number', () => {
   assert.ok(warnings.some((w) => /whatsappNumber/.test(w)));
 });
 
-test('validateConfig warns about an empty form endpoint (WhatsApp fallback will be used)', () => {
-  const warnings = validateConfig({ ...siteConfig, whatsappNumber: '5599987654321', formEndpoint: '' });
-  assert.ok(warnings.some((w) => /formEndpoint/.test(w)));
-});
-
-test('validateConfig returns no warnings for a complete config', () => {
-  const warnings = validateConfig({
-    ...siteConfig,
-    whatsappNumber: '5599987654321',
-    formEndpoint: 'https://formspree.io/f/abc123',
-  });
-  assert.deepEqual(warnings, []);
+test('validateConfig returns no warnings for the current config', () => {
+  assert.deepEqual(validateConfig(siteConfig), []);
 });

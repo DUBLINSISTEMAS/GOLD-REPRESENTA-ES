@@ -10,12 +10,14 @@ export function buildLeadMessage({ interesse, valor, specialist }) {
   );
 }
 
-/** Contact-form fallback: the same fields, formatted as a WhatsApp message. */
-export function buildContactMessage({ name, email, message }) {
-  return [
+/** Contact form → WhatsApp: nome + modalidade de crédito + mensagem opcional. */
+export function buildContactMessage({ name, interesse, message }) {
+  const lines = [
     'Olá! Vim pelo site da Gold Representações.',
     `*Nome:* ${collapseWhitespace(name)}`,
-    `*E-mail:* ${collapseWhitespace(email)}`,
-    `*Mensagem:* ${collapseWhitespace(message)}`,
-  ].join('\n');
+    `*Interesse:* ${collapseWhitespace(interesse)}`,
+  ];
+  const extra = collapseWhitespace(message);
+  if (extra) lines.push(`*Mensagem:* ${extra}`);
+  return lines.join('\n');
 }

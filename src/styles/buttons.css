@@ -105,6 +105,21 @@
   width: 100%;
 }
 
+/* CTA do Instagram: gradiente oficial da marca, pílula com elevação no hover. */
+.btn-instagram {
+  background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+  color: var(--color-white);
+  border-radius: 999px;
+  padding: 0.8rem 1.9rem;
+  box-shadow: 0 4px 15px rgba(204, 35, 102, 0.35);
+}
+
+.btn-instagram:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(204, 35, 102, 0.5);
+  filter: saturate(1.15);
+}
+
 .btn-link {
   display: inline-flex;
   align-items: center;

@@ -132,6 +132,7 @@
 }
 
 .form-group input,
+.form-group select,
 .form-group textarea {
   width: 100%;
   min-height: var(--tap-target);
@@ -145,7 +146,19 @@
     box-shadow var(--transition-fast);
 }
 
+.form-group select {
+  background-color: var(--color-white);
+  color: var(--color-text);
+  cursor: pointer;
+}
+
+/* Enquanto a opção placeholder (value="") está selecionada, o select parece um placeholder. */
+.form-group select:invalid {
+  color: var(--color-text-light);
+}
+
 .form-group input:focus-visible,
+.form-group select:focus-visible,
 .form-group textarea:focus-visible {
   outline: none;
   border-color: var(--color-primary);

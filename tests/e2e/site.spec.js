@@ -69,6 +69,17 @@ test.describe('landing page', () => {
     }
   });
 
+  test('reveal animates on scroll and releases its classes when done', async ({ page }) => {
+    await page.goto('/');
+    const card = page.locator('.service-card').first();
+    await expect(card).toHaveClass(/reveal/); // abaixo da dobra: ainda escondido
+    await card.scrollIntoViewIfNeeded();
+    // Ao fim da transição as classes de reveal são removidas — o elemento
+    // volta às próprias transições (hover ágil) e o estado final é o padrão.
+    await expect(card).not.toHaveClass(/reveal/, { timeout: 5000 });
+    await expect(card).toBeVisible();
+  });
+
   test('map is only loaded after an explicit click', async ({ page }) => {
     await page.goto('/');
     await expect(page.locator('iframe')).toHaveCount(0);
@@ -94,10 +105,13 @@ test.describe('lead capture', () => {
     expect(href).toContain('*R$ 150 a 300 mil*');
   });
 
-  test('chatbot accepts a typed amount', async ({ page }) => {
+  test('chatbot offers the credit modalities and accepts a typed amount', async ({ page }) => {
     await page.goto('/');
     await page.getByRole('button', { name: 'Abrir assistente virtual' }).click();
-    await page.getByRole('button', { name: 'Comprar veículo' }).click();
+    for (const option of ['Comprar imóvel', 'Comprar veículo', 'Investir', 'Crédito rural', 'Outro objetivo']) {
+      await expect(page.getByRole('button', { name: option })).toBeVisible();
+    }
+    await page.getByRole('button', { name: 'Crédito rural' }).click();
     const input = page.getByLabel('Sua resposta');
     await expect(input).toBeEnabled();
     await input.fill('80 mil');
@@ -105,7 +119,9 @@ test.describe('lead capture', () => {
 
     const link = page.locator('a.chat-wa-link');
     await expect(link).toBeVisible();
-    expect(decodeURIComponent(await link.getAttribute('href'))).toContain('*80 mil*');
+    const href = decodeURIComponent(await link.getAttribute('href'));
+    expect(href).toContain('*Crédito rural*');
+    expect(href).toContain('*80 mil*');
   });
 
   test('contact form validates, then hands the message to WhatsApp', async ({ page }) => {
@@ -123,14 +139,15 @@ test.describe('lead capture', () => {
     expect(await page.evaluate(() => window.__opened.length), 'native validation must block').toBe(0);
 
     await form.getByLabel('Nome completo').fill('Maria Silva');
-    await form.getByLabel('E-mail').fill('maria@exemplo.com');
-    await form.getByLabel('Mensagem').fill('Quero simular um imóvel de 250 mil.');
+    await form.getByLabel('Modalidade de crédito').selectOption('Imóvel');
+    await form.getByLabel(/Mensagem/).fill('Quero simular um imóvel de 250 mil.');
     await form.getByLabel(/Política de Privacidade/).check();
     await form.getByRole('button', { name: 'Enviar mensagem' }).click();
 
     const opened = await page.evaluate(() => window.__opened);
     expect(opened).toHaveLength(1);
     expect(decodeURIComponent(opened[0])).toContain('Maria Silva');
+    expect(decodeURIComponent(opened[0])).toContain('*Interesse:* Imóvel');
     await expect(page.locator('#form-status a', { hasText: 'Abrir WhatsApp' })).toBeVisible();
   });
 
@@ -149,8 +166,8 @@ test.describe('lead capture', () => {
     const form = page.locator('#contact-form');
     const fill = async () => {
       await form.getByLabel('Nome completo').fill('João Souza');
-      await form.getByLabel('E-mail').fill('joao@exemplo.com');
-      await form.getByLabel('Mensagem').fill('Quero um carro de 80 mil.');
+      await form.getByLabel('Modalidade de crédito').selectOption('Veículo');
+      await form.getByLabel(/Mensagem/).fill('Quero um carro de 80 mil.');
       await form.getByLabel(/Política de Privacidade/).check();
     };
 
@@ -159,7 +176,7 @@ test.describe('lead capture', () => {
     await expect(page.locator('#form-status')).toHaveText(/Mensagem enviada/);
     await expect(form.getByLabel('Nome completo')).toHaveValue(''); // reset after success
     expect(received).toHaveLength(1);
-    expect(received[0]).toMatchObject({ name: 'João Souza', email: 'joao@exemplo.com', consent: 'sim' });
+    expect(received[0]).toMatchObject({ name: 'João Souza', interesse: 'Veículo', consent: 'sim' });
 
     // Endpoint failure: visitor gets an error, button is usable again.
     await page.route(ENDPOINT, (route) => route.fulfill({ status: 500, body: 'nope' }));
@@ -169,15 +186,15 @@ test.describe('lead capture', () => {
     await expect(form.getByRole('button', { name: 'Enviar mensagem' })).toBeEnabled();
   });
 
-  test('degrades without JavaScript: content visible, form falls back to mailto', async ({ browser, baseURL }) => {
+  test('degrades without JavaScript: content visible, form falls back to WhatsApp', async ({ browser, baseURL }) => {
     const context = await browser.newContext({ javaScriptEnabled: false });
     const page = await context.newPage();
     await page.goto(`${baseURL}/`);
 
     await expect(page.locator('h1')).toBeVisible();
     await expect(page.locator('#sobre h2')).toBeVisible(); // reveal must not hide content
-    await expect(page.locator('#contact-form')).toHaveAttribute('action', /^mailto:/);
-    await expect(page.locator('#contact-form')).toHaveAttribute('enctype', 'text/plain');
+    await expect(page.locator('#contact-form')).toHaveAttribute('action', /^https:\/\/wa\.me\/\d+$/);
+    await expect(page.locator('#contact-form')).toHaveAttribute('method', /get/i);
     await expect(page.getByText(/sem JavaScript/)).toBeVisible();
 
     await context.close();
@@ -186,7 +203,7 @@ test.describe('lead capture', () => {
   test('form fields carry name and autocomplete attributes', async ({ page }) => {
     await page.goto('/');
     const fields = await page.$$eval(
-      '#contact-form input:not([type="checkbox"]):not([name="_gotcha"]), #contact-form textarea',
+      '#contact-form input:not([type="checkbox"]):not([name="_gotcha"]), #contact-form select, #contact-form textarea',
       (elements) => elements.map((el) => ({ name: el.name, autocomplete: el.getAttribute('autocomplete') })),
     );
     expect(fields.length).toBe(3);
