@@ -84,7 +84,8 @@ test.describe('landing page', () => {
     await page.goto('/');
     await expect(page.locator('iframe')).toHaveCount(0); // nenhum embed de terceiros
     const link = page.getByRole('link', { name: /Ver no Google Maps/ });
-    await expect(link).toHaveAttribute('href', /^https:\/\/share\.google\//);
+    // Formato oficial de Maps URLs com o Place ID: link permanente para a ficha.
+    await expect(link).toHaveAttribute('href', /^https:\/\/www\.google\.com\/maps\/search\/\?api=1&.*query_place_id=ChIJ/);
     await expect(link).toHaveAttribute('target', '_blank');
   });
 });

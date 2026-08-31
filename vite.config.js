@@ -57,6 +57,11 @@ function buildJsonLd(config) {
     telephone: config.phoneE164,
     ...(config.email && { email: config.email }),
     address,
+    geo: {
+      '@type': 'GeoCoordinates',
+      latitude: config.latitude,
+      longitude: config.longitude,
+    },
     areaServed: `${config.city} - ${config.state}`,
     // hasMap + sameAs apontando para o Perfil da Empresa ajudam o Google a casar
     // o site com a ficha do negócio (Local Pack).

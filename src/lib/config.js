@@ -20,11 +20,18 @@ const base = {
   city: 'Pedreiras',
   state: 'MA',
   /** Rua, número e bairro. Vazio = mostra só cidade/UF. */
-  addressLine: '',
+  addressLine: 'R. Maneco Rêgo',
   instagramHandle: 'gold_representacoes2026',
   instagramUrl: 'https://www.instagram.com/gold_representacoes2026/',
-  /** Perfil da empresa no Google (endereço, fotos e avaliações). */
-  googleProfileUrl: 'https://share.google/z3KHG01smDxW0f6cU',
+  /**
+   * Place ID do Perfil da Empresa no Google. É o identificador permanente do
+   * lugar — dele saem o link do mapa e o link de avaliação (ver derive()).
+   * Links share.google são temporários e não servem aqui.
+   */
+  googlePlaceId: 'ChIJWXyXGAAnigcRS70tVO5qOMY',
+  /** Coordenadas do escritório, conforme o próprio Perfil da Empresa. */
+  latitude: -4.5717343,
+  longitude: -44.6007211,
   /** Nome de quem assume a conversa no WhatsApp. */
   specialistName: 'Anderson',
   /** Administradora parceira. Vazio = a nota na seção de contemplados não aparece. */
@@ -49,6 +56,10 @@ function derive(config) {
     formAction: config.formEndpoint || `https://wa.me/${digits}`,
     formMethod: config.formEndpoint ? 'POST' : 'GET',
     formEnctype: 'application/x-www-form-urlencoded',
+    /** Formato oficial de Maps URLs: permanente e abre o app no celular. */
+    googleProfileUrl: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(config.siteName)}&query_place_id=${config.googlePlaceId}`,
+    /** Formulário de avaliação do Google, para pedir avaliação a clientes reais. */
+    googleReviewUrl: `https://search.google.com/local/writereview?placeid=${config.googlePlaceId}`,
     locationDisplay: location,
     administradoraNote: config.administradora
       ? `Contemplações realizadas por meio da ${config.administradora}, administradora parceira da Gold.`
