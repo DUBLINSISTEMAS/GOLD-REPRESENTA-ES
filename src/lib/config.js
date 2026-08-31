@@ -21,9 +21,10 @@ const base = {
   state: 'MA',
   /** Rua, número e bairro. Vazio = mostra só cidade/UF. */
   addressLine: '',
-  mapsQuery: 'Pedreiras, MA',
   instagramHandle: 'gold_representacoes2026',
   instagramUrl: 'https://www.instagram.com/gold_representacoes2026/',
+  /** Perfil da empresa no Google (endereço, fotos e avaliações). */
+  googleProfileUrl: 'https://share.google/z3KHG01smDxW0f6cU',
   /** Nome de quem assume a conversa no WhatsApp. */
   specialistName: 'Anderson',
   /** Administradora parceira. Vazio = a nota na seção de contemplados não aparece. */
@@ -48,8 +49,6 @@ function derive(config) {
     formAction: config.formEndpoint || `https://wa.me/${digits}`,
     formMethod: config.formEndpoint ? 'POST' : 'GET',
     formEnctype: 'application/x-www-form-urlencoded',
-    mapsUrl: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(config.mapsQuery)}`,
-    mapsEmbedUrl: `https://www.google.com/maps?q=${encodeURIComponent(config.mapsQuery)}&z=15&output=embed`,
     locationDisplay: location,
     administradoraNote: config.administradora
       ? `Contemplações realizadas por meio da ${config.administradora}, administradora parceira da Gold.`

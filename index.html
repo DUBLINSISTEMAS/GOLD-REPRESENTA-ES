@@ -223,13 +223,13 @@
               </li>
             </ul>
 
-            <div class="map-facade" id="map-facade">
-              <p>Veja onde estamos em {{city}} - {{state}}.</p>
-              <div class="map-actions">
-                <button type="button" class="btn btn-outline" id="map-load" data-map-src="{{mapsEmbedUrl}}">Carregar mapa</button>
-                <a class="btn-link btn-link-light" href="{{mapsUrl}}" target="_blank" rel="noopener">Abrir no Google Maps</a>
-              </div>
-              <small>O mapa do Google só é carregado quando você clicar — nenhum dado é enviado antes disso.</small>
+            <div class="google-card">
+              <p>Veja a Gold no Google: endereço, fotos e avaliações de quem já foi atendido.</p>
+              <a class="btn btn-google" href="{{googleProfileUrl}}" target="_blank" rel="noopener noreferrer">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                Ver no Google Maps
+              </a>
+              <small>Abre o nosso perfil no Google — nada é carregado nesta página.</small>
             </div>
           </div>
 

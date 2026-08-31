@@ -81,7 +81,7 @@ button {
 .hero :focus-visible,
 .navbar :focus-visible,
 .footer :focus-visible,
-.map-facade :focus-visible,
+.google-card :focus-visible,
 .chatbot-header :focus-visible,
 .chatbot-toggle:focus-visible,
 .whatsapp-float:focus-visible {

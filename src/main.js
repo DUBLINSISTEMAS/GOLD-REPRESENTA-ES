@@ -6,7 +6,6 @@ import { initReveal } from './modules/reveal.js';
 import { initHeroVideo } from './modules/hero-video.js';
 import { initChatbot } from './modules/chatbot.js';
 import { initContactForm } from './modules/contact-form.js';
-import { initMapFacade } from './modules/map-facade.js';
 import { updateYear } from './modules/year.js';
 
 if (import.meta.env.DEV) {
@@ -19,5 +18,4 @@ initReveal();
 initHeroVideo();
 initChatbot(siteConfig);
 initContactForm(siteConfig);
-initMapFacade();
 updateYear();

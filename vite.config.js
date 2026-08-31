@@ -27,7 +27,7 @@ function buildCsp(config, { forHeader }) {
     "font-src 'self'",
     "img-src 'self' data:",
     "media-src 'self'",
-    'frame-src https://www.google.com',
+    "frame-src 'none'",
     `connect-src 'self' ${formOrigin}`,
     // wa.me: destino do action nativo do formulário quando não há formEndpoint (fallback sem JS).
     `form-action 'self' https://wa.me ${formOrigin}`,
@@ -58,7 +58,10 @@ function buildJsonLd(config) {
     ...(config.email && { email: config.email }),
     address,
     areaServed: `${config.city} - ${config.state}`,
-    sameAs: [config.instagramUrl],
+    // hasMap + sameAs apontando para o Perfil da Empresa ajudam o Google a casar
+    // o site com a ficha do negócio (Local Pack).
+    hasMap: config.googleProfileUrl,
+    sameAs: [config.instagramUrl, config.googleProfileUrl],
   };
   // "<" escaped so a value can never close the <script> element.
   return JSON.stringify(data).replace(/</g, '\\u003c');

@@ -51,46 +51,38 @@
 }
 
 /* Fachada do mapa: o iframe do Google só entra depois do clique. */
-.map-facade {
+/* Cartão do perfil no Google: um link, sem iframe — nada de terceiros nesta página. */
+.google-card {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   justify-content: center;
   gap: 1rem;
-  min-height: 250px;
-  padding: 1.5rem;
+  padding: 1.75rem;
   background-color: var(--color-primary);
   color: var(--color-white);
   border-radius: var(--radius-md);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
-.map-facade p {
+.google-card p {
   font-weight: 500;
 }
 
-.map-facade small {
+.google-card small {
   font-size: 0.8rem;
   color: rgba(255, 255, 255, 0.75);
 }
 
-.map-actions {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 1rem;
+.btn-google {
+  background-color: var(--color-white);
+  color: var(--color-primary);
 }
 
-.map-facade.is-loaded {
-  min-height: 0;
-  padding: 0;
-  overflow: hidden;
-}
-
-.map-facade iframe {
-  display: block;
-  width: 100%;
-  height: 250px;
-  border: 0;
+.btn-google:hover {
+  background-color: var(--color-accent);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
 }
 
 /* Formulário */

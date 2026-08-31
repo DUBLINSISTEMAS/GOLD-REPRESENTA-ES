@@ -80,11 +80,12 @@ test.describe('landing page', () => {
     await expect(card).toBeVisible();
   });
 
-  test('map is only loaded after an explicit click', async ({ page }) => {
+  test('location is a link to the Google profile, with no third-party frame', async ({ page }) => {
     await page.goto('/');
-    await expect(page.locator('iframe')).toHaveCount(0);
-    await page.getByRole('button', { name: 'Carregar mapa' }).click();
-    await expect(page.locator('#map-facade iframe')).toHaveAttribute('title', /Mapa/);
+    await expect(page.locator('iframe')).toHaveCount(0); // nenhum embed de terceiros
+    const link = page.getByRole('link', { name: /Ver no Google Maps/ });
+    await expect(link).toHaveAttribute('href', /^https:\/\/share\.google\//);
+    await expect(link).toHaveAttribute('target', '_blank');
   });
 });
 
