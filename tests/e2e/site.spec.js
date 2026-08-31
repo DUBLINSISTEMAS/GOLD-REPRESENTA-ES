@@ -245,4 +245,13 @@ test.describe('desktop hero', () => {
     await page.goto('/');
     await expect(page.locator('.hero-bg-video source')).toHaveCount(1, { timeout: 5000 });
   });
+
+  test('nav link glides to the section and updates the URL hash', async ({ page }) => {
+    await page.goto('/');
+    await page.locator('#menu-principal').getByRole('link', { name: 'Sobre Nós' }).click();
+    await expect(page).toHaveURL(/#sobre$/);
+    await expect
+      .poll(() => page.evaluate(() => window.scrollY), { timeout: 5000 })
+      .toBeGreaterThan(300); // a rolagem animada (Lenis) chegou na seção
+  });
 });
