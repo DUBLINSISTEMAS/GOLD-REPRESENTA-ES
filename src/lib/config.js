@@ -12,7 +12,7 @@ import { buildWhatsAppUrl, formatPhoneBR, isPlaceholderNumber, normalizePhone } 
 const base = {
   siteName: 'Gold Representações',
   /** Sem barra no final. Usado em canonical, Open Graph e sitemap. */
-  siteUrl: 'https://goldrepresentacoes.com.br',
+  siteUrl: 'https://goldrepresentacoes.site',
   /** DDI + DDD + número, só dígitos. */
   whatsappNumber: '5586998152406',
   /** Ainda não existe e-mail comercial. Vazio = nenhum canal de e-mail aparece no site. */
