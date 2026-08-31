@@ -10,6 +10,7 @@ Landing page de uma página (Vite, HTML/CSS/JS sem framework) para a Gold Repres
 | `npm run build` | Gera `dist/` (é isso que vai para o ar) |
 | `npm run preview` | Serve o `dist/` localmente |
 | `npm run images` | Regenera `public/img/` a partir de `assets-src/originals/` |
+| `npm run video` | Regenera `public/hero-video.mp4` (faststart, sem áudio) a partir do original |
 | `npm run test:unit` | Testes das funções puras (`node --test`) |
 | `npm run test:e2e` | Testes de ponta a ponta com Playwright (usa o Chrome instalado) |
 | `npm test` | Os dois acima |
@@ -53,7 +54,9 @@ A CSP libera só o que o site usa: o iframe do Google Maps, o `wa.me` (destino d
 
 ## Decisões técnicas
 
-- Vídeo do hero (4,2 MB) só é anexado em telas ≥ 992 px, sem `prefers-reduced-motion`/`Save-Data`, e depois de a página ficar ociosa. Celular vê o poster (64 KB).
+- Vídeo do hero (1,46 MB) só é anexado em telas ≥ 768 px, sem `prefers-reduced-motion`/`Save-Data`, e depois de a página ficar ociosa. Celular vê o poster (64 KB).
+- O MP4 **precisa** ser gerado por `npm run video`: o original tinha o índice (`moov`) no fim do arquivo, o que fazia o vídeo começar tarde ou não começar. O script move o índice para o início (`+faststart`) e descarta o áudio (a tag é muda). Um teste unitário falha se o arquivo publicado perder o faststart.
+- `hero-video.js` não confia numa única chamada de `play()`: repete a tentativa em `canplay`, ao voltar para a aba e no primeiro gesto do visitante (autoplay bloqueado). Enquanto não tocar, o poster continua visível.
 - Mapa do Google só carrega depois de um clique (privacidade + ~600 KB a menos).
 - Sem JavaScript o conteúdo fica todo visível: o reveal só esconde elementos quando `<html class="js">`.
 - Nenhum `window.open` fora de um clique do usuário — a entrega para o WhatsApp é sempre um link/botão.
