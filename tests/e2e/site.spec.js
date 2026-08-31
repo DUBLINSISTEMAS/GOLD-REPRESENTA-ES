@@ -87,6 +87,9 @@ test.describe('landing page', () => {
     // Formato oficial de Maps URLs com o Place ID: link permanente para a ficha.
     await expect(link).toHaveAttribute('href', /^https:\/\/www\.google\.com\/maps\/search\/\?api=1&.*query_place_id=ChIJ/);
     await expect(link).toHaveAttribute('target', '_blank');
+
+    const review = page.getByRole('link', { name: /Deixe sua avaliação/ });
+    await expect(review).toHaveAttribute('href', /^https:\/\/search\.google\.com\/local\/writereview\?placeid=ChIJ/);
   });
 });
 

@@ -74,6 +74,27 @@
   color: rgba(255, 255, 255, 0.75);
 }
 
+/* Pedido de avaliação: secundário de propósito, não disputa com os CTAs de lead. */
+.google-review {
+  margin-top: 0.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  width: 100%;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.google-review a {
+  color: var(--color-accent);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.google-review a:hover {
+  color: var(--color-white);
+}
+
 .btn-google {
   background-color: var(--color-white);
   color: var(--color-primary);
