@@ -7,6 +7,7 @@ import { initHeroVideo } from './modules/hero-video.js';
 import { initChatbot } from './modules/chatbot.js';
 import { initContactForm } from './modules/contact-form.js';
 import { updateYear } from './modules/year.js';
+import { initCookieBanner } from './modules/cookie-banner.js';
 
 if (import.meta.env.DEV) {
   for (const warning of validateConfig(siteConfig)) console.warn(`[site-config] ${warning}`);
@@ -19,3 +20,4 @@ initHeroVideo();
 initChatbot(siteConfig);
 initContactForm(siteConfig);
 updateYear();
+initCookieBanner();

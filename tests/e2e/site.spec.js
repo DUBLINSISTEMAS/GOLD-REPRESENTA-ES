@@ -293,3 +293,26 @@ test.describe('desktop hero', () => {
       .toBeGreaterThan(300); // a rolagem animada (Lenis) chegou na seção
   });
 });
+
+test.describe('privacy notice', () => {
+  test('shows on first visit, links to the policy and stays dismissed after reload', async ({ page }) => {
+    await page.goto('/');
+    const banner = page.locator('#cookie-banner');
+    await expect(banner).toBeVisible();
+    await expect(banner.getByRole('link', { name: /Política de Privacidade/ })).toHaveAttribute('href', '/privacidade.html');
+    await banner.getByRole('button', { name: /Entendi/ }).click();
+    await expect(banner).toBeHidden();
+    await page.reload();
+    await expect(page.locator('#cookie-banner')).toBeHidden();
+  });
+
+  test('lifts the floating buttons above the bar instead of covering them', async ({ page }) => {
+    await page.goto('/');
+    const banner = await page.locator('#cookie-banner').boundingBox();
+    const whatsapp = await page.locator('a.whatsapp-float').boundingBox();
+    const chat = await page.locator('#chatbot-toggle').boundingBox();
+    expect(banner).not.toBeNull();
+    expect(whatsapp.y + whatsapp.height).toBeLessThanOrEqual(banner.y);
+    expect(chat.y + chat.height).toBeLessThanOrEqual(banner.y);
+  });
+});

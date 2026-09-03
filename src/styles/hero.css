@@ -65,7 +65,6 @@
 
 .hero .hero-lead {
   max-width: 640px;
-  margin-bottom: 0.75rem;
   font-size: 1.35rem;
   font-weight: 600;
   color: var(--color-accent);
