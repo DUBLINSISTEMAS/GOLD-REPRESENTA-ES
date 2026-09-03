@@ -1,6 +1,6 @@
 # Gold Representações — site
 
-Landing page de uma página (Vite, HTML/CSS/JS sem framework) para a Gold Representações: carta de crédito por consórcio para imóveis, veículos e investimentos.
+Landing page de uma página (Vite, HTML/CSS/JS sem framework) para a Gold Representações: consórcio para imóveis, veículos, investimentos e alavancagem patrimonial.
 
 ## Comandos
 

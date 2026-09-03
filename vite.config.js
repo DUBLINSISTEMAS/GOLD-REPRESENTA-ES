@@ -53,7 +53,7 @@ function buildJsonLd(config) {
     url: `${config.siteUrl}/`,
     logo: `${config.siteUrl}/img/logo-360.webp`,
     image: `${config.siteUrl}/og-image.jpg`,
-    description: 'Representação de cartas de crédito por consórcio para imóveis, veículos e investimentos.',
+    description: 'Consórcio para imóveis, veículos, investimentos e alavancagem patrimonial. Sem juros, apenas taxa de administração.',
     telephone: config.phoneE164,
     ...(config.email && { email: config.email }),
     address,
@@ -161,7 +161,7 @@ function generatedFiles(config) {
       type: 'text/plain',
       source:
         `# ${config.siteName}\n\n` +
-        `> Representação de cartas de crédito por consórcio para imóveis, veículos e investimentos em ${config.city} - ${config.state}. Sem juros, apenas taxa de administração.\n\n` +
+        `> Consórcio para imóveis, veículos, investimentos e alavancagem patrimonial em ${config.city} - ${config.state}. Sem juros, apenas taxa de administração.\n\n` +
         `- [Página inicial](${config.siteUrl}/): soluções, clientes contemplados e contato\n` +
         `- [Política de Privacidade](${config.siteUrl}/privacidade.html)\n` +
         `- [Instagram](${config.instagramUrl})\n`,

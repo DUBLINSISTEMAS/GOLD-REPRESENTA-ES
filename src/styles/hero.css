@@ -47,7 +47,7 @@
 }
 
 .hero h1 {
-  font-size: 4rem;
+  font-size: 3.5rem;
   color: var(--color-white);
   margin-bottom: 1.5rem;
 }
@@ -61,6 +61,15 @@
   margin-bottom: 2.5rem;
   font-size: 1.25rem;
   opacity: 0.9;
+}
+
+.hero .hero-lead {
+  max-width: 640px;
+  margin-bottom: 0.75rem;
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--color-accent);
+  opacity: 1;
 }
 
 .hero-actions {
